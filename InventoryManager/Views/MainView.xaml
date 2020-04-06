@@ -1,0 +1,150 @@
+﻿<Window x:Class="InventoryManager.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InventoryManager.Views"
+        mc:Ignorable="d"
+        Title="Inventory Manager" Height="450" Width="800" ResizeMode="CanMinimize" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <CollectionViewSource x:Key="Products" Source="{Binding Products}"/>
+    </Window.Resources>
+    
+    <Border Padding="10">
+        <TabControl TabStripPlacement="Top">
+            <TabItem Header="Manage data">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="90" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="0">
+                        <TextBlock Text="Product Name" FontWeight="Bold" Margin="0 10"/>
+                        <ComboBox>
+
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="1">
+                        <TextBlock Text="Product Category" FontWeight="Bold" Margin="0 10"/>
+                        <ComboBox>
+
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="2">
+                        <TextBlock Text="Location" FontWeight="Bold" Margin="0 10"/>
+                        <ComboBox>
+
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="3">
+                        <TextBlock Text="Get in Date" FontWeight="Bold" Margin="0 10"/>
+                            <DatePicker SelectedDate="{Binding GetInDate}" BorderThickness="0" />                        
+                    </StackPanel>
+
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="4">
+                        <TextBlock Text="Best Before" FontWeight="Bold" Margin="0 10"/>
+                        <DatePicker SelectedDate="{Binding BestBeforeDate}" BorderThickness="0" />
+                    </StackPanel>
+
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="5">
+                        <TextBlock Text="Quantity [portion]" FontWeight="Bold" Margin="0 10"/>
+                        <!--<TextBox SelectedText="{Binding Quantity}" Text="0"/>-->                        
+                    </StackPanel>
+
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                        <Button Margin="5">Create New Item</Button>
+                        <Button Margin="5">Update Item</Button>
+                        <Button Margin="5">Delete Item</Button>
+                    </StackPanel>
+
+  
+                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" x:Name="Products" AutoGenerateColumns="False" Margin="0,10,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}"/>
+                            <DataGridTextColumn Header="Product Category" Binding="{Binding ProdCategoryId}"/>
+                            <DataGridTextColumn Header="Location" Binding="{Binding LocationId}"/>
+                            <DataGridTextColumn Header="Get in Date" Binding="{Binding GetInDate}"/>
+                            <DataGridTextColumn Header="Best Before" Binding="{Binding BestBefore}"/>
+                            <DataGridTextColumn Header="Quantity [portion]" Binding="{Binding Quantity}"/>
+                            <!--<DataGridComboBoxColumn Header="ProdCategoryId"
+                                                    Selector.IsSelected="True"
+                                                    ItemsSource="{Binding Source={StaticResource Products}}"
+                                                    DisplayMemberPath="ProdCategoryId"
+                                                    SelectedItemBinding="{Binding Path=SelectedProdCategoryId,
+                                                                            Mode=TwoWay}"/>
+                            <DataGridComboBoxColumn Header="Cat"
+                                                    ItemsSource="{Binding Source={StaticResource Products}}"
+                                                    DisplayMemberPath="ProdCategoryId"                                                    
+                                                    SelectedItemBinding="{Binding Path=SelectedProdCategoryId,
+                                                                            Mode=TwoWay}">                                                    
+                            </DataGridComboBoxColumn>
+
+                            <DataGridTemplateColumn Header="cat">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox SelectedIndex="0">
+                                            <ComboBox.ItemsSource>
+                                                <CompositeCollection>
+
+                                                    <CollectionContainer Collection="{Binding Source={StaticResource Products}}"/>
+                                                    
+                                                </CompositeCollection>
+                                            </ComboBox.ItemsSource>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>-->
+                        </DataGrid.Columns>
+                        
+                    </DataGrid>
+                </Grid>
+
+
+            </TabItem>
+            <TabItem Header="Akarmi">
+                
+            </TabItem>
+            <TabItem Header="barmi">
+                
+            </TabItem>
+                     
+            
+        </TabControl>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </Border>
+</Window>
