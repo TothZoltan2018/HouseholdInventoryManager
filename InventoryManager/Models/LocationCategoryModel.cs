@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace InventoryManager.Models
 {
-    class ProductModelToDisplay : ProductModel
+    class LocationCategoryModel
     {
-       public string ProdCatName { get; set;}
+        public int LocCategoryId { get; set; }
+        public string LocCatName { get; set; }
     }
 }

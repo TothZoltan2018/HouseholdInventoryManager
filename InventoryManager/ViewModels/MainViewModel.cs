@@ -16,7 +16,10 @@ namespace InventoryManager.ViewModels
 
         public BindableCollection<ProductModel> Products { get; set; } = new BindableCollection<ProductModel>();
         public BindableCollection<ProdCategoryModel> ProdCategories { get; set; } = new BindableCollection<ProdCategoryModel>();
-        public BindableCollection<ProductModelToDisplay> ProductsToDisplay { get; set; } = new BindableCollection<ProductModelToDisplay>();
+        public BindableCollection<LocationModel> Locations { get; set; } = new BindableCollection<LocationModel>();
+        public BindableCollection<LocationCategoryModel> LocationCategories { get; set; } = new BindableCollection<LocationCategoryModel>();
+
+        public BindableCollection<ProductModelAllTablesMerged> ProductModelAllTablesMerged { get; set; } = new BindableCollection<ProductModelAllTablesMerged>();
 
         public MainViewModel()
         {
@@ -28,7 +31,12 @@ namespace InventoryManager.ViewModels
                 ProdCategoryCommands prodCategoryCommands = new ProdCategoryCommands(_connectionString);
                 ProdCategories.AddRange(prodCategoryCommands.GetList());
 
-                //Todo: Location, locationId
+                LocationCommands locationCommands = new LocationCommands(_connectionString);
+                Locations.AddRange(locationCommands.GetList());
+
+                LocCategoryCommands locCategoryCommands = new LocCategoryCommands(_connectionString);
+                LocationCategories.AddRange(locCategoryCommands.GetList());
+
             }
             catch (Exception ex)
             {
@@ -42,22 +50,36 @@ namespace InventoryManager.ViewModels
         private void GenerateTableProductsToDisplay()
         {
             var prodcatDictionary = ProdCategories.ToDictionary(cat => cat.ProdCategoryId);
+            var locDictionary = Locations.ToDictionary(loc => loc.LocationId);
+            var locCatDictionary = LocationCategories.ToDictionary(locCat => locCat.LocCategoryId); 
+
             foreach (var product in Products)
             {
-                ProductModelToDisplay productModelToDisplay = new ProductModelToDisplay();
+                ProductModelAllTablesMerged productModelAllTablesMerged = new ProductModelAllTablesMerged
+                {
+                    ProductId = product.ProductId,
+                    ProductName = product.ProductName,
+                    ProdCategoryId = product.ProdCategoryId,
+                    LocationId = product.LocationId,
+                    GetInDate = product.GetInDate,
+                    BestBefore = product.BestBefore,
+                    Quantity = product.Quantity
+                };
 
-                productModelToDisplay.ProductId = product.ProductId;
-                productModelToDisplay.ProductName = product.ProductName;
-                productModelToDisplay.ProdCategoryId = product.ProdCategoryId;
-                productModelToDisplay.LocationId = product.LocationId;
-                productModelToDisplay.GetInDate = product.GetInDate;
-                productModelToDisplay.BestBefore = product.BestBefore;
-                productModelToDisplay.Quantity = product.Quantity;
+                prodcatDictionary.TryGetValue(productModelAllTablesMerged.ProdCategoryId, out ProdCategoryModel prodcat);
+                productModelAllTablesMerged.ProdCatName = prodcat.ProdCatName;
 
-                prodcatDictionary.TryGetValue(productModelToDisplay.ProdCategoryId, out ProdCategoryModel prodcat);
-                productModelToDisplay.ProdCatName = prodcat.ProdCatName;
+                locDictionary.TryGetValue(productModelAllTablesMerged.LocationId, out LocationModel loc);
+                productModelAllTablesMerged.LocationName = loc.LocationName;
 
-                ProductsToDisplay.Add(productModelToDisplay);
+                locCatDictionary.TryGetValue(loc.LocCategoryId, out LocationCategoryModel locCat);
+                productModelAllTablesMerged.LocCatName = locCat.LocCatName;
+
+                //todo
+                
+                productModelAllTablesMerged.LocCatId = locCat.LocCategoryId;
+
+                this.ProductModelAllTablesMerged.Add(productModelAllTablesMerged);
             }
         }
 
