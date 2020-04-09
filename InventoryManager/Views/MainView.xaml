@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:InventoryManager.Views"
         mc:Ignorable="d"
         Title="Inventory Manager" Height="450" Width="800" ResizeMode="CanMinimize" SizeToContent="WidthAndHeight">
-    <Window.Resources>
-        <CollectionViewSource x:Key="Products" Source="{Binding Products}"/>
-    </Window.Resources>
+    <!--<Window.Resources>
+        <CollectionViewSource x:Key="Products" Source="{Binding ProductModelAllTablesMerged}"/>
+    </Window.Resources>-->
     
     <Border Padding="10">
         <TabControl TabStripPlacement="Top">
@@ -32,24 +32,18 @@
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="0">
                         <TextBlock Text="Product Name" FontWeight="Bold" Margin="0 10"/>
-                        <ComboBox>
-
-                        </ComboBox>
+                        <TextBox Text="{Binding Path=SelectedProductName, Mode=TwoWay}"/>                
                     </StackPanel>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="1">
                         <TextBlock Text="Product Category" FontWeight="Bold" Margin="0 10"/>
-                        <ComboBox>
-
-                        </ComboBox>
+                        <ComboBox ItemsSource="{Binding Path=ProdCategories}" DisplayMemberPath="ProdCatName" SelectedItem="{Binding Path=SelectedProdCategoryName, Mode=TwoWay}"/>                              
                     </StackPanel>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="2">
                         <TextBlock Text="Location" FontWeight="Bold" Margin="0 10"/>
-                        <ComboBox>
-
-                        </ComboBox>
-                    </StackPanel>
+                        <ComboBox ItemsSource="{Binding Path=Locations}" DisplayMemberPath="LocationName" SelectedItem="{Binding Path=SelectedLocationName, Mode=TwoWay}"/>                            
+                     </StackPanel>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="3">
                         <TextBlock Text="Get in Date" FontWeight="Bold" Margin="0 10"/>
@@ -79,12 +73,15 @@
                         <Button Margin="5">Delete Item</Button>
                     </StackPanel>
 
-  
-                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" x:Name="Products" AutoGenerateColumns="False" Margin="0,10,0,0">
+
+                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7"
+                              x:Name="ProductModelAllTablesMerged" 
+                              SelectedItem="{Binding Path=SelectedInventoryRow,Mode=TwoWay}"
+                              AutoGenerateColumns="False" Margin="0,10,0,0" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}"/>
-                            <DataGridTextColumn Header="Product Category" Binding="{Binding ProdCategoryId}"/>
-                            <DataGridTextColumn Header="Location" Binding="{Binding LocationId}"/>
+                            <DataGridTextColumn Header="Product Category" Binding="{Binding ProdCatName}"/>
+                            <DataGridTextColumn Header="Location" Binding="{Binding LocationName}"/>
                             <DataGridTextColumn Header="Get in Date" Binding="{Binding GetInDate}"/>
                             <DataGridTextColumn Header="Best Before" Binding="{Binding BestBefore}"/>
                             <DataGridTextColumn Header="Quantity [portion]" Binding="{Binding Quantity}"/>
@@ -121,7 +118,7 @@
                     </DataGrid>
                 </Grid>
 
-
+                
             </TabItem>
             <TabItem Header="Akarmi">
                 

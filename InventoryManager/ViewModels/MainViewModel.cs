@@ -12,17 +12,19 @@ namespace InventoryManager.ViewModels
     class MainViewModel : Screen
     {
         private readonly string _connectionString = @"Data Source=.\sqlexpress;Initial Catalog=FoodInventory;Integrated Security=True";
-        private int _selectedProdCategoryId;
 
         public BindableCollection<ProductModel> Products { get; set; } = new BindableCollection<ProductModel>();
         public BindableCollection<ProdCategoryModel> ProdCategories { get; set; } = new BindableCollection<ProdCategoryModel>();
         public BindableCollection<LocationModel> Locations { get; set; } = new BindableCollection<LocationModel>();
         public BindableCollection<LocationCategoryModel> LocationCategories { get; set; } = new BindableCollection<LocationCategoryModel>();
-
         public BindableCollection<ProductModelAllTablesMerged> ProductModelAllTablesMerged { get; set; } = new BindableCollection<ProductModelAllTablesMerged>();
+
+        private ProductModelAllTablesMerged _selectedInventoryRow;
+        private ProdCategoryModel _selectedProdCategoryName;
 
         public MainViewModel()
         {
+
             try
             {
                 ProductCommands productCommands = new ProductCommands(_connectionString);
@@ -40,7 +42,6 @@ namespace InventoryManager.ViewModels
             }
             catch (Exception ex)
             {
-
                 throw; //ToDo
             }
                                    
@@ -75,34 +76,82 @@ namespace InventoryManager.ViewModels
                 locCatDictionary.TryGetValue(loc.LocCategoryId, out LocationCategoryModel locCat);
                 productModelAllTablesMerged.LocCatName = locCat.LocCatName;
 
-                //todo
-                
                 productModelAllTablesMerged.LocCatId = locCat.LocCategoryId;
 
                 this.ProductModelAllTablesMerged.Add(productModelAllTablesMerged);
             }
         }
 
+        public ProductModelAllTablesMerged SelectedInventoryRow 
+        {
+            get
+            {
+                return _selectedInventoryRow;
+            }
+            set
+            {
+                _selectedInventoryRow = value;
+                SelectedProductName = value.ProductName;
+                NotifyOfPropertyChange(() => SelectedProductName);   
+                
+                NotifyOfPropertyChange(() => SelectedProdCategoryName);
+                NotifyOfPropertyChange(() => SelectedLocationName);
+
+                //SelectedLocationName = value.LocationName;
+                //NotifyOfPropertyChange(() => SelectedLocationName);
+                //SelectedGetInDate = value.GetInDate;
+                //NotifyOfPropertyChange(() => SelectedGetInDate);
+                //SelectedBestBefore = value.BestBefore;
+                //NotifyOfPropertyChange(() => SelectedBestBefore);
+                //SelectedQuantity = value.Quantity;
+                //NotifyOfPropertyChange(() => SelectedQuantity);
 
 
-        //public int SelectedProdCategoryId
-        //{
-        //    get
-        //    {
+                NotifyOfPropertyChange(() => SelectedInventoryRow);
+            }
+        }
 
-        //        return Products[2].ProdCategoryId;
-        //    }
+        public string SelectedProductName { get; set; }
 
-        //    set
-        //    {
-        //        _selectedProdCategoryId = value;
-        //        NotifyOfPropertyChange(() => SelectedProdCategoryId);
-        //    }
-        //}
+        //COMBOBOX ProdCategory
+        public ProdCategoryModel SelectedProdCategoryName
+        {
+            get
+            {
+                var dictProdCategories = ProdCategories.ToDictionary(x => x.ProdCategoryId);
+                return dictProdCategories[SelectedInventoryRow.ProdCategoryId];
+
+                //The below 4 commented out lines are two not woking solutions. Why?
+                // _selectedProdCategoryName = new ProdCategoryModel { ProdCategoryId = SelectedInventoryRow.ProdCategoryId, ProdCatName = SelectedInventoryRow.ProdCatName };
+
+                //_selectedProdCategoryName.ProdCategoryId = _selectedInventoryRow.ProdCategoryId;
+                //_selectedProdCategoryName.ProdCatName = _selectedInventoryRow.ProdCatName;
+
+                //return _selectedProdCategory;
+            }
+            set
+            {
+                _selectedProdCategoryName = value;
+            }
+        }
+
+        private LocationModel _selectedLocationName;
+        public LocationModel SelectedLocationName
+        {
+            get
+            {
+                var dictLocations = Locations.ToDictionary(x => x.LocationId);
+                return dictLocations[SelectedInventoryRow.LocationId];
+            }
+            set
+            {
+                _selectedLocationName = value;
+            }
+        }
 
 
-
-
-
+        public DateTime SelectedGetInDate { get; set; }
+        public DateTime SelectedBestBefore { get; set; }
+        public int SelectedQuantity { get; set; }
     }
 }
