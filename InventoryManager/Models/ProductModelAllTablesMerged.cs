@@ -12,5 +12,8 @@ namespace InventoryManager.Models
         public string LocationName { get; set; }
         public string LocCatName { get; set; }
         public int LocCatId { get; set; }
+        public string UnitName { get; set; }
+        public int UnitId { get; set; }
+
     }
 }

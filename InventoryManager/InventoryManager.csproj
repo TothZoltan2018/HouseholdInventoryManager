@@ -78,11 +78,13 @@
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\ProdCategoryModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\UnitModel.cs" />
     <Compile Include="Repository\LocationCommands.cs" />
     <Compile Include="Repository\LocCategoryCommands.cs" />
     <Compile Include="Repository\ProdCategoryCommands.cs" />
     <Compile Include="Repository\ProductCommands.cs" />
     <Compile Include="Models\ProductModelAllTablesMerged.cs" />
+    <Compile Include="Repository\UnitCommands.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">

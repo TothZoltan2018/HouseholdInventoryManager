@@ -15,7 +15,8 @@
             <TabItem Header="Manage data">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -47,20 +48,25 @@
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="3">
                         <TextBlock Text="Get in Date" FontWeight="Bold" Margin="0 10"/>
-                            <DatePicker SelectedDate="{Binding GetInDate}" BorderThickness="0" />                        
+                        <DatePicker SelectedDate="{Binding SelectedGetInDate, Mode=TwoWay}" BorderThickness="0" />                        
                     </StackPanel>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="4">
                         <TextBlock Text="Best Before" FontWeight="Bold" Margin="0 10"/>
-                        <DatePicker SelectedDate="{Binding BestBeforeDate}" BorderThickness="0" />
+                        <DatePicker SelectedDate="{Binding SelectedBestBefore, Mode=TwoWay}" BorderThickness="0" />
                     </StackPanel>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="5">
-                        <TextBlock Text="Quantity [portion]" FontWeight="Bold" Margin="0 10"/>
-                        <!--<TextBox SelectedText="{Binding Quantity}" Text="0"/>-->                        
+                        <TextBlock Text="Quantity" FontWeight="Bold" Margin="0 10"/>
+                        <TextBox Name="Quantity" PreviewTextInput="NumberValidationTextBoxQuantity" Text="{Binding Path=SelectedQuantity, Mode=TwoWay}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="6">
+                        <TextBlock Text="Unit" FontWeight="Bold" Margin="0 10"/>
+                        <ComboBox ItemsSource="{Binding Path=Units}" DisplayMemberPath="UnitName" SelectedItem="{Binding Path=SelectedUnitName, Mode=TwoWay}"/>
                     </StackPanel>
 
-                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="6">
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="7">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -74,7 +80,7 @@
                     </StackPanel>
 
 
-                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7"
+                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="8"
                               x:Name="ProductModelAllTablesMerged" 
                               SelectedItem="{Binding Path=SelectedInventoryRow,Mode=TwoWay}"
                               AutoGenerateColumns="False" Margin="0,10,0,0" IsReadOnly="True">
@@ -84,7 +90,8 @@
                             <DataGridTextColumn Header="Location" Binding="{Binding LocationName}"/>
                             <DataGridTextColumn Header="Get in Date" Binding="{Binding GetInDate}"/>
                             <DataGridTextColumn Header="Best Before" Binding="{Binding BestBefore}"/>
-                            <DataGridTextColumn Header="Quantity [portion]" Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Header="Unit" Binding="{Binding UnitName}"/>
                             <!--<DataGridComboBoxColumn Header="ProdCategoryId"
                                                     Selector.IsSelected="True"
                                                     ItemsSource="{Binding Source={StaticResource Products}}"

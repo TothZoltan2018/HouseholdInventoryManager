@@ -15,5 +15,6 @@ namespace InventoryManager.Models
         public DateTime GetInDate { get; set; }
         public DateTime BestBefore { get; set; }
         public int Quantity { get; set; }
+        public int UnitId { get; set; }
     }
 }

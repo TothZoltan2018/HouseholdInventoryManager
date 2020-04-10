@@ -17,11 +17,9 @@ namespace InventoryManager.ViewModels
         public BindableCollection<ProdCategoryModel> ProdCategories { get; set; } = new BindableCollection<ProdCategoryModel>();
         public BindableCollection<LocationModel> Locations { get; set; } = new BindableCollection<LocationModel>();
         public BindableCollection<LocationCategoryModel> LocationCategories { get; set; } = new BindableCollection<LocationCategoryModel>();
+        public BindableCollection<UnitModel> Units { get; set; } = new BindableCollection<UnitModel>();
         public BindableCollection<ProductModelAllTablesMerged> ProductModelAllTablesMerged { get; set; } = new BindableCollection<ProductModelAllTablesMerged>();
-
-        private ProductModelAllTablesMerged _selectedInventoryRow;
-        private ProdCategoryModel _selectedProdCategoryName;
-
+                
         public MainViewModel()
         {
 
@@ -39,6 +37,8 @@ namespace InventoryManager.ViewModels
                 LocCategoryCommands locCategoryCommands = new LocCategoryCommands(_connectionString);
                 LocationCategories.AddRange(locCategoryCommands.GetList());
 
+                UnitCommands unitCommands = new UnitCommands(_connectionString);
+                Units.AddRange(unitCommands.GetList());
             }
             catch (Exception ex)
             {
@@ -52,7 +52,8 @@ namespace InventoryManager.ViewModels
         {
             var prodcatDictionary = ProdCategories.ToDictionary(cat => cat.ProdCategoryId);
             var locDictionary = Locations.ToDictionary(loc => loc.LocationId);
-            var locCatDictionary = LocationCategories.ToDictionary(locCat => locCat.LocCategoryId); 
+            var locCatDictionary = LocationCategories.ToDictionary(locCat => locCat.LocCategoryId);
+            var unitDictionary = Units.ToDictionary(u => u.UnitId);
 
             foreach (var product in Products)
             {
@@ -64,7 +65,8 @@ namespace InventoryManager.ViewModels
                     LocationId = product.LocationId,
                     GetInDate = product.GetInDate,
                     BestBefore = product.BestBefore,
-                    Quantity = product.Quantity
+                    Quantity = product.Quantity,
+                    UnitId = product.UnitId
                 };
 
                 prodcatDictionary.TryGetValue(productModelAllTablesMerged.ProdCategoryId, out ProdCategoryModel prodcat);
@@ -78,10 +80,14 @@ namespace InventoryManager.ViewModels
 
                 productModelAllTablesMerged.LocCatId = locCat.LocCategoryId;
 
+                unitDictionary.TryGetValue(productModelAllTablesMerged.UnitId, out UnitModel unit);
+                productModelAllTablesMerged.UnitName = unit.UnitName;
+                
                 this.ProductModelAllTablesMerged.Add(productModelAllTablesMerged);
             }
         }
 
+        private ProductModelAllTablesMerged _selectedInventoryRow;
         public ProductModelAllTablesMerged SelectedInventoryRow 
         {
             get
@@ -91,29 +97,29 @@ namespace InventoryManager.ViewModels
             set
             {
                 _selectedInventoryRow = value;
-                SelectedProductName = value.ProductName;
+
                 NotifyOfPropertyChange(() => SelectedProductName);   
-                
                 NotifyOfPropertyChange(() => SelectedProdCategoryName);
                 NotifyOfPropertyChange(() => SelectedLocationName);
-
-                //SelectedLocationName = value.LocationName;
-                //NotifyOfPropertyChange(() => SelectedLocationName);
-                //SelectedGetInDate = value.GetInDate;
-                //NotifyOfPropertyChange(() => SelectedGetInDate);
-                //SelectedBestBefore = value.BestBefore;
-                //NotifyOfPropertyChange(() => SelectedBestBefore);
-                //SelectedQuantity = value.Quantity;
-                //NotifyOfPropertyChange(() => SelectedQuantity);
-
+                NotifyOfPropertyChange(() => SelectedGetInDate);
+                NotifyOfPropertyChange(() => SelectedBestBefore);
+                NotifyOfPropertyChange(() => SelectedQuantity);
+                NotifyOfPropertyChange(() => SelectedUnitName);
 
                 NotifyOfPropertyChange(() => SelectedInventoryRow);
             }
         }
 
-        public string SelectedProductName { get; set; }
+        //TEXTBOX ProductName
+        string _selectedProductName;
+        public string SelectedProductName
+        {
+            get { return SelectedInventoryRow.ProductName; }
+            set { _selectedProductName = value; }
+        }
 
-        //COMBOBOX ProdCategory
+        //COMBOBOX ProdCategoryName
+        private ProdCategoryModel _selectedProdCategoryName;
         public ProdCategoryModel SelectedProdCategoryName
         {
             get
@@ -135,6 +141,7 @@ namespace InventoryManager.ViewModels
             }
         }
 
+        //COMBOBOX LocationName
         private LocationModel _selectedLocationName;
         public LocationModel SelectedLocationName
         {
@@ -149,9 +156,42 @@ namespace InventoryManager.ViewModels
             }
         }
 
+        //DATETIMEPICKER GetInDate
+        private DateTime _selectedGetInDate;
+        public DateTime SelectedGetInDate
+        {
+            get { return SelectedInventoryRow.GetInDate; }
+            set { _selectedGetInDate = value; }             
+        }
 
-        public DateTime SelectedGetInDate { get; set; }
-        public DateTime SelectedBestBefore { get; set; }
-        public int SelectedQuantity { get; set; }
+        //DATETIMEPICKER BestBefore
+        private DateTime _selectedBestBefore;
+        public DateTime SelectedBestBefore
+        {
+            get { return SelectedInventoryRow.BestBefore; }
+            set { _selectedBestBefore = value; }
+        }
+
+        private int _selectedQuantity;
+        public int SelectedQuantity
+        {
+            get { return SelectedInventoryRow.Quantity; }
+            set { _selectedQuantity = value; }
+        }
+
+        //COMBOBOX Units
+        private UnitModel _selectedUnitName;
+        public UnitModel SelectedUnitName
+        {
+            get
+            {
+                var dictUnits = Units.ToDictionary(x => x.UnitId);
+                return dictUnits[SelectedInventoryRow.UnitId];
+            }
+            set
+            {
+                _selectedUnitName = value;
+            }
+        }
     }
 }
