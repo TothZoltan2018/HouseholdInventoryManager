@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InventoryManager.Views"
         mc:Ignorable="d"
-        Title="Inventory Manager" Height="450" Width="800" ResizeMode="CanMinimize" SizeToContent="WidthAndHeight">
+        Title="Inventory Manager" Height="450" Width="800" SizeToContent="WidthAndHeight">
     <!--<Window.Resources>
         <CollectionViewSource x:Key="Products" Source="{Binding ProductModelAllTablesMerged}"/>
     </Window.Resources>-->
@@ -23,12 +23,13 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <!--<ColumnDefinition Width="*" />-->
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="90" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="45"/>
                     </Grid.RowDefinitions>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="0">
@@ -38,12 +39,12 @@
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="1">
                         <TextBlock Text="Product Category" FontWeight="Bold" Margin="0 10"/>
-                        <ComboBox ItemsSource="{Binding Path=ProdCategories}" DisplayMemberPath="ProdCatName" SelectedItem="{Binding Path=SelectedProdCategoryName, Mode=TwoWay}"/>                              
+                        <ComboBox ItemsSource="{Binding Path=ProdCategories}" DisplayMemberPath="ProdCatName" SelectedItem="{Binding Path=SelectedProdCategory, Mode=TwoWay}"/>                              
                     </StackPanel>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="2">
                         <TextBlock Text="Location" FontWeight="Bold" Margin="0 10"/>
-                        <ComboBox ItemsSource="{Binding Path=Locations}" DisplayMemberPath="LocationName" SelectedItem="{Binding Path=SelectedLocationName, Mode=TwoWay}"/>                            
+                        <ComboBox ItemsSource="{Binding Path=Locations}" DisplayMemberPath="LocationName" SelectedItem="{Binding Path=SelectedLocation, Mode=TwoWay}"/>                            
                      </StackPanel>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="3">
@@ -63,7 +64,7 @@
                     
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="6">
                         <TextBlock Text="Unit" FontWeight="Bold" Margin="0 10"/>
-                        <ComboBox ItemsSource="{Binding Path=Units}" DisplayMemberPath="UnitName" SelectedItem="{Binding Path=SelectedUnitName, Mode=TwoWay}"/>
+                        <ComboBox ItemsSource="{Binding Path=Units}" DisplayMemberPath="UnitName" SelectedItem="{Binding Path=SelectedUnit, Mode=TwoWay}"/>
                     </StackPanel>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="7">
@@ -75,10 +76,9 @@
                             </Grid.RowDefinitions>
                         </Grid>
                         <Button Margin="5">Create New Item</Button>
-                        <Button Margin="5">Update Item</Button>
+                        <Button Margin="5" x:Name="UpdateItem">Update Item</Button>
                         <Button Margin="5">Delete Item</Button>
                     </StackPanel>
-
 
                     <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="8"
                               x:Name="ProductModelAllTablesMerged" 
@@ -120,9 +120,14 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>-->
-                        </DataGrid.Columns>
-                        
+                        </DataGrid.Columns>                        
                     </DataGrid>
+
+                    <StatusBar Grid.Row="2" Grid.ColumnSpan="8" Height="25" Margin="0 10 0 0">
+                        <StatusBarItem TextBlock.TextAlignment="Left">
+                            <TextBlock Text="{Binding Path=AppStatus}"/>                            
+                        </StatusBarItem>
+                    </StatusBar>
                 </Grid>
 
                 

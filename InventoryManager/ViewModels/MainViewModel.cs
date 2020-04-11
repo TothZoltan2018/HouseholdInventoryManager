@@ -19,13 +19,15 @@ namespace InventoryManager.ViewModels
         public BindableCollection<LocationCategoryModel> LocationCategories { get; set; } = new BindableCollection<LocationCategoryModel>();
         public BindableCollection<UnitModel> Units { get; set; } = new BindableCollection<UnitModel>();
         public BindableCollection<ProductModelAllTablesMerged> ProductModelAllTablesMerged { get; set; } = new BindableCollection<ProductModelAllTablesMerged>();
-                
+
+        ProductCommands productCommands;
+
         public MainViewModel()
         {
 
             try
             {
-                ProductCommands productCommands = new ProductCommands(_connectionString);
+                productCommands = new ProductCommands(_connectionString);
                 Products.AddRange(productCommands.GetList());
 
                 ProdCategoryCommands prodCategoryCommands = new ProdCategoryCommands(_connectionString);
@@ -39,13 +41,15 @@ namespace InventoryManager.ViewModels
 
                 UnitCommands unitCommands = new UnitCommands(_connectionString);
                 Units.AddRange(unitCommands.GetList());
+
+                UpdateAppStatus($"Database tables fetched.");
             }
             catch (Exception ex)
             {
-                throw; //ToDo
+                UpdateAppStatus($"Error on retrieving tables from SQL database:\n{ex.Message}");
             }
                                    
-            GenerateTableProductsToDisplay(); //ToDo Location also needs to be decoded
+            GenerateTableProductsToDisplay();
         }
 
         private void GenerateTableProductsToDisplay()
@@ -98,13 +102,18 @@ namespace InventoryManager.ViewModels
             {
                 _selectedInventoryRow = value;
 
+                _selectedProductName = value.ProductName;
+                _selectedGetInDate = value.GetInDate;
+                _selectedBestBefore = value.BestBefore;
+                _selectedQuantity = value.Quantity;
+
                 NotifyOfPropertyChange(() => SelectedProductName);   
-                NotifyOfPropertyChange(() => SelectedProdCategoryName);
-                NotifyOfPropertyChange(() => SelectedLocationName);
+                NotifyOfPropertyChange(() => SelectedProdCategory);
+                NotifyOfPropertyChange(() => SelectedLocation);
                 NotifyOfPropertyChange(() => SelectedGetInDate);
                 NotifyOfPropertyChange(() => SelectedBestBefore);
                 NotifyOfPropertyChange(() => SelectedQuantity);
-                NotifyOfPropertyChange(() => SelectedUnitName);
+                NotifyOfPropertyChange(() => SelectedUnit);
 
                 NotifyOfPropertyChange(() => SelectedInventoryRow);
             }
@@ -113,14 +122,14 @@ namespace InventoryManager.ViewModels
         //TEXTBOX ProductName
         string _selectedProductName;
         public string SelectedProductName
-        {
-            get { return SelectedInventoryRow.ProductName; }
+        {            
+            get { return _selectedProductName; }
             set { _selectedProductName = value; }
         }
 
         //COMBOBOX ProdCategoryName
-        private ProdCategoryModel _selectedProdCategoryName;
-        public ProdCategoryModel SelectedProdCategoryName
+        private ProdCategoryModel _selectedProdCategory;
+        public ProdCategoryModel SelectedProdCategory
         {
             get
             {
@@ -128,22 +137,22 @@ namespace InventoryManager.ViewModels
                 return dictProdCategories[SelectedInventoryRow.ProdCategoryId];
 
                 //The below 4 commented out lines are two not woking solutions. Why?
-                // _selectedProdCategoryName = new ProdCategoryModel { ProdCategoryId = SelectedInventoryRow.ProdCategoryId, ProdCatName = SelectedInventoryRow.ProdCatName };
+                // _selectedProdCategory = new ProdCategoryModel { ProdCategoryId = SelectedInventoryRow.ProdCategoryId, ProdCatName = SelectedInventoryRow.ProdCatName };
 
-                //_selectedProdCategoryName.ProdCategoryId = _selectedInventoryRow.ProdCategoryId;
-                //_selectedProdCategoryName.ProdCatName = _selectedInventoryRow.ProdCatName;
+                //_selectedProdCategory.ProdCategoryId = _selectedInventoryRow.ProdCategoryId;
+                //_selectedProdCategory.ProdCatName = _selectedInventoryRow.ProdCatName;
 
                 //return _selectedProdCategory;
             }
             set
             {
-                _selectedProdCategoryName = value;
+                _selectedProdCategory = value;
             }
         }
 
         //COMBOBOX LocationName
-        private LocationModel _selectedLocationName;
-        public LocationModel SelectedLocationName
+        private LocationModel _selectedLocation;
+        public LocationModel SelectedLocation
         {
             get
             {
@@ -152,7 +161,7 @@ namespace InventoryManager.ViewModels
             }
             set
             {
-                _selectedLocationName = value;
+                _selectedLocation = value;
             }
         }
 
@@ -160,7 +169,7 @@ namespace InventoryManager.ViewModels
         private DateTime _selectedGetInDate;
         public DateTime SelectedGetInDate
         {
-            get { return SelectedInventoryRow.GetInDate; }
+            get { return _selectedGetInDate; }
             set { _selectedGetInDate = value; }             
         }
 
@@ -168,20 +177,20 @@ namespace InventoryManager.ViewModels
         private DateTime _selectedBestBefore;
         public DateTime SelectedBestBefore
         {
-            get { return SelectedInventoryRow.BestBefore; }
+            get { return _selectedBestBefore; }
             set { _selectedBestBefore = value; }
         }
 
         private int _selectedQuantity;
         public int SelectedQuantity
         {
-            get { return SelectedInventoryRow.Quantity; }
+            get { return _selectedQuantity; }
             set { _selectedQuantity = value; }
         }
 
         //COMBOBOX Units
-        private UnitModel _selectedUnitName;
-        public UnitModel SelectedUnitName
+        private UnitModel _selectedUnit;
+        public UnitModel SelectedUnit
         {
             get
             {
@@ -190,8 +199,70 @@ namespace InventoryManager.ViewModels
             }
             set
             {
-                _selectedUnitName = value;
+                _selectedUnit = value;
             }
         }
+
+        private string _appStatus;
+        public string AppStatus
+        {
+            get { return _appStatus; }
+            set { _appStatus = value; }
+        
+        }
+        private void UpdateAppStatus(string message)
+        {
+            AppStatus = message;
+            NotifyOfPropertyChange(() => AppStatus);
+        }
+
+        public void UpdateItem()
+        {
+            if (SelectedInventoryRow != null)
+            {
+                ProductModel updateProductRow = new ProductModel();
+
+                updateProductRow.ProductId = SelectedInventoryRow.ProductId;
+                updateProductRow.ProductName = SelectedProductName;               
+
+                if (_selectedProdCategory == null) updateProductRow.ProdCategoryId = SelectedProdCategory.ProdCategoryId; //There's nothing manually selected in combobox
+                else updateProductRow.ProdCategoryId = _selectedProdCategory.ProdCategoryId;
+
+                if (_selectedLocation == null) updateProductRow.LocationId = SelectedLocation.LocationId; //There's nothing manually selected in combobox
+                else updateProductRow.LocationId = _selectedLocation.LocationId;
+                
+                updateProductRow.GetInDate = SelectedGetInDate;
+                updateProductRow.BestBefore = SelectedBestBefore;
+                updateProductRow.Quantity = SelectedQuantity;
+
+                if (_selectedUnit == null) updateProductRow.UnitId = SelectedUnit.UnitId; //There's nothing manually selected in combobox
+                else updateProductRow.UnitId = _selectedUnit.UnitId;
+
+                try
+                {
+                    productCommands.UpdateItem(updateProductRow);
+                    UpdateAppStatus("Update successful!"); //Todo: Appstatus is not updating
+                }
+                catch (Exception ex)
+                {
+                    UpdateAppStatus($"Unsuccessful update!\n{ex}");
+                }
+
+                try
+                {   //Todo: reload and show table is not working
+                    ProductModelAllTablesMerged.Clear();
+                    Products.AddRange(productCommands.GetList());
+                    GenerateTableProductsToDisplay();
+                    UpdateAppStatus($"Database tables fetched.");
+                }
+                catch (Exception ex)
+                {
+                    UpdateAppStatus($"Error on retrieving table \"Product\" from SQL database:\n{ex.Message}");
+                }                
+            }
+                
+        }
+
     }
-}
+ }
+
