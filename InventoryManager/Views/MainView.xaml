@@ -125,7 +125,7 @@
 
                     <StatusBar Grid.Row="2" Grid.ColumnSpan="8" Height="25" Margin="0 10 0 0">
                         <StatusBarItem TextBlock.TextAlignment="Left">
-                            <TextBlock Text="{Binding Path=AppStatus}"/>                            
+                            <TextBlock Foreground="{Binding Path=StatusColor}" Text="{Binding Path=AppStatus}"/>                            
                         </StatusBarItem>
                     </StatusBar>
                 </Grid>

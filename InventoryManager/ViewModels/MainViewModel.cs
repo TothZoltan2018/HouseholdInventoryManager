@@ -21,10 +21,10 @@ namespace InventoryManager.ViewModels
         public BindableCollection<ProductModelAllTablesMerged> ProductModelAllTablesMerged { get; set; } = new BindableCollection<ProductModelAllTablesMerged>();
 
         ProductCommands productCommands;
+        private System.Windows.Media.Brush _statusColor = System.Windows.Media.Brushes.Black;
 
         public MainViewModel()
         {
-
             try
             {
                 productCommands = new ProductCommands(_connectionString);
@@ -42,10 +42,12 @@ namespace InventoryManager.ViewModels
                 UnitCommands unitCommands = new UnitCommands(_connectionString);
                 Units.AddRange(unitCommands.GetList());
 
+                StatusColor = System.Windows.Media.Brushes.DarkGreen;
                 UpdateAppStatus($"Database tables fetched.");
             }
             catch (Exception ex)
             {
+                StatusColor = System.Windows.Media.Brushes.Red;
                 UpdateAppStatus($"Error on retrieving tables from SQL database:\n{ex.Message}");
             }
                                    
@@ -94,10 +96,7 @@ namespace InventoryManager.ViewModels
         private ProductModelAllTablesMerged _selectedInventoryRow;
         public ProductModelAllTablesMerged SelectedInventoryRow 
         {
-            get
-            {
-                return _selectedInventoryRow;
-            }
+            get { return _selectedInventoryRow; }
             set
             {
                 _selectedInventoryRow = value;
@@ -144,10 +143,7 @@ namespace InventoryManager.ViewModels
 
                 //return _selectedProdCategory;
             }
-            set
-            {
-                _selectedProdCategory = value;
-            }
+            set { _selectedProdCategory = value; }            
         }
 
         //COMBOBOX LocationName
@@ -159,10 +155,7 @@ namespace InventoryManager.ViewModels
                 var dictLocations = Locations.ToDictionary(x => x.LocationId);
                 return dictLocations[SelectedInventoryRow.LocationId];
             }
-            set
-            {
-                _selectedLocation = value;
-            }
+            set { _selectedLocation = value; }
         }
 
         //DATETIMEPICKER GetInDate
@@ -197,21 +190,29 @@ namespace InventoryManager.ViewModels
                 var dictUnits = Units.ToDictionary(x => x.UnitId);
                 return dictUnits[SelectedInventoryRow.UnitId];
             }
-            set
-            {
-                _selectedUnit = value;
-            }
+            set { _selectedUnit = value; }
         }
 
         private string _appStatus;
         public string AppStatus
         {
             get { return _appStatus; }
-            set { _appStatus = value; }
-        
+            set { _appStatus = value; }        
         }
+
+        public System.Windows.Media.Brush StatusColor
+        {
+            get { return _statusColor; }
+            set
+            {
+                _statusColor = value;
+                NotifyOfPropertyChange(() => StatusColor);
+            }
+        }
+
         private void UpdateAppStatus(string message)
         {
+            NotifyOfPropertyChange(() => StatusColor);
             AppStatus = message;
             NotifyOfPropertyChange(() => AppStatus);
         }
@@ -231,34 +232,35 @@ namespace InventoryManager.ViewModels
                 if (_selectedLocation == null) updateProductRow.LocationId = SelectedLocation.LocationId; //There's nothing manually selected in combobox
                 else updateProductRow.LocationId = _selectedLocation.LocationId;
                 
-                updateProductRow.GetInDate = SelectedGetInDate;
-                updateProductRow.BestBefore = SelectedBestBefore;
-                updateProductRow.Quantity = SelectedQuantity;
+                updateProductRow.GetInDate = _selectedGetInDate;
+                updateProductRow.BestBefore = _selectedBestBefore;
+                updateProductRow.Quantity = _selectedQuantity;
 
                 if (_selectedUnit == null) updateProductRow.UnitId = SelectedUnit.UnitId; //There's nothing manually selected in combobox
                 else updateProductRow.UnitId = _selectedUnit.UnitId;
 
-                try
-                {
-                    productCommands.UpdateItem(updateProductRow);
-                    UpdateAppStatus("Update successful!"); //Todo: Appstatus is not updating
-                }
+                try { productCommands.UpdateItem(updateProductRow); }
                 catch (Exception ex)
                 {
-                    UpdateAppStatus($"Unsuccessful update!\n{ex}");
+                    StatusColor = System.Windows.Media.Brushes.Red;
+                    UpdateAppStatus($"Unsuccessful update!\n{ex}"); 
                 }
 
                 try
-                {   //Todo: reload and show table is not working
+                {
                     ProductModelAllTablesMerged.Clear();
+                    Products.Clear();
                     Products.AddRange(productCommands.GetList());
                     GenerateTableProductsToDisplay();
-                    UpdateAppStatus($"Database tables fetched.");
+                    StatusColor = System.Windows.Media.Brushes.DarkGreen;
+                    UpdateAppStatus($"Update successful. Updated table reloaded.");
                 }
                 catch (Exception ex)
                 {
+                    StatusColor = System.Windows.Media.Brushes.Red;
                     UpdateAppStatus($"Error on retrieving table \"Product\" from SQL database:\n{ex.Message}");
-                }                
+                }
+                
             }
                 
         }
