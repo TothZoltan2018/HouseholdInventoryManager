@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace InventoryManager.ViewModels
 {
@@ -21,7 +22,8 @@ namespace InventoryManager.ViewModels
         public BindableCollection<ProductModelAllTablesMerged> ProductModelAllTablesMerged { get; set; } = new BindableCollection<ProductModelAllTablesMerged>();
 
         ProductCommands productCommands;
-        private System.Windows.Media.Brush _statusColor = System.Windows.Media.Brushes.Black;
+        ProductModel updateProductRow;
+
 
         public MainViewModel()
         {
@@ -42,15 +44,15 @@ namespace InventoryManager.ViewModels
                 UnitCommands unitCommands = new UnitCommands(_connectionString);
                 Units.AddRange(unitCommands.GetList());
 
-                StatusColor = System.Windows.Media.Brushes.DarkGreen;
-                UpdateAppStatus($"Database tables fetched.");
+                //StatusColor = System.Windows.Media.Brushes.DarkGreen;
+                UpdateAppStatus($"Database tables fetched.", Brushes.DarkGreen);
             }
             catch (Exception ex)
             {
-                StatusColor = System.Windows.Media.Brushes.Red;
-                UpdateAppStatus($"Error on retrieving tables from SQL database:\n{ex.Message}");
+                //StatusColor = System.Windows.Media.Brushes.Red;
+                UpdateAppStatus($"Error on retrieving tables from SQL database:\n{ex.Message}", Brushes.Red);
             }
-                                   
+
             GenerateTableProductsToDisplay();
         }
 
@@ -88,13 +90,13 @@ namespace InventoryManager.ViewModels
 
                 unitDictionary.TryGetValue(productModelAllTablesMerged.UnitId, out UnitModel unit);
                 productModelAllTablesMerged.UnitName = unit.UnitName;
-                
-                this.ProductModelAllTablesMerged.Add(productModelAllTablesMerged);
+
+                ProductModelAllTablesMerged.Add(productModelAllTablesMerged);
             }
         }
 
         private ProductModelAllTablesMerged _selectedInventoryRow;
-        public ProductModelAllTablesMerged SelectedInventoryRow 
+        public ProductModelAllTablesMerged SelectedInventoryRow
         {
             get { return _selectedInventoryRow; }
             set
@@ -106,7 +108,7 @@ namespace InventoryManager.ViewModels
                 _selectedBestBefore = value.BestBefore;
                 _selectedQuantity = value.Quantity;
 
-                NotifyOfPropertyChange(() => SelectedProductName);   
+                NotifyOfPropertyChange(() => SelectedProductName);
                 NotifyOfPropertyChange(() => SelectedProdCategory);
                 NotifyOfPropertyChange(() => SelectedLocation);
                 NotifyOfPropertyChange(() => SelectedGetInDate);
@@ -121,7 +123,7 @@ namespace InventoryManager.ViewModels
         //TEXTBOX ProductName
         string _selectedProductName;
         public string SelectedProductName
-        {            
+        {
             get { return _selectedProductName; }
             set { _selectedProductName = value; }
         }
@@ -134,16 +136,8 @@ namespace InventoryManager.ViewModels
             {
                 var dictProdCategories = ProdCategories.ToDictionary(x => x.ProdCategoryId);
                 return dictProdCategories[SelectedInventoryRow.ProdCategoryId];
-
-                //The below 4 commented out lines are two not woking solutions. Why?
-                // _selectedProdCategory = new ProdCategoryModel { ProdCategoryId = SelectedInventoryRow.ProdCategoryId, ProdCatName = SelectedInventoryRow.ProdCatName };
-
-                //_selectedProdCategory.ProdCategoryId = _selectedInventoryRow.ProdCategoryId;
-                //_selectedProdCategory.ProdCatName = _selectedInventoryRow.ProdCatName;
-
-                //return _selectedProdCategory;
             }
-            set { _selectedProdCategory = value; }            
+            set { _selectedProdCategory = value; }
         }
 
         //COMBOBOX LocationName
@@ -159,21 +153,22 @@ namespace InventoryManager.ViewModels
         }
 
         //DATETIMEPICKER GetInDate
-        private DateTime _selectedGetInDate;
+        private DateTime _selectedGetInDate = DateTime.Now;
         public DateTime SelectedGetInDate
         {
             get { return _selectedGetInDate; }
-            set { _selectedGetInDate = value; }             
+            set { _selectedGetInDate = value; }
         }
 
         //DATETIMEPICKER BestBefore
-        private DateTime _selectedBestBefore;
+        private DateTime _selectedBestBefore = DateTime.Now;
         public DateTime SelectedBestBefore
         {
             get { return _selectedBestBefore; }
             set { _selectedBestBefore = value; }
         }
 
+        //Validated TEXTBOX Quantity
         private int _selectedQuantity;
         public int SelectedQuantity
         {
@@ -197,9 +192,10 @@ namespace InventoryManager.ViewModels
         public string AppStatus
         {
             get { return _appStatus; }
-            set { _appStatus = value; }        
+            set { _appStatus = value; }
         }
 
+        private System.Windows.Media.Brush _statusColor = System.Windows.Media.Brushes.Black;
         public System.Windows.Media.Brush StatusColor
         {
             get { return _statusColor; }
@@ -210,28 +206,38 @@ namespace InventoryManager.ViewModels
             }
         }
 
-        private void UpdateAppStatus(string message)
+        private void UpdateAppStatus(string message, Brush statusColor)
         {
+            StatusColor = statusColor;
             NotifyOfPropertyChange(() => StatusColor);
             AppStatus = message;
             NotifyOfPropertyChange(() => AppStatus);
         }
 
+        /// <summary>
+        /// This method updates or inserts a row to the database.
+        /// </summary>
         public void UpdateItem()
         {
-            if (SelectedInventoryRow != null)
+            if (SelectedInventoryRow != null || createItem)
             {
-                ProductModel updateProductRow = new ProductModel();
+                updateProductRow = new ProductModel();
 
-                updateProductRow.ProductId = SelectedInventoryRow.ProductId;
-                updateProductRow.ProductName = SelectedProductName;               
+                //ProductId must be set to a value which is not in the Product table in the SQL database. SQL stored proc will then Insert, not Update Table
+                if (createItem) updateProductRow.ProductId = 0;
+                else
+                {
+                    updateProductRow.ProductId = SelectedInventoryRow.ProductId;
+                }
+
+                updateProductRow.ProductName = SelectedProductName;
 
                 if (_selectedProdCategory == null) updateProductRow.ProdCategoryId = SelectedProdCategory.ProdCategoryId; //There's nothing manually selected in combobox
                 else updateProductRow.ProdCategoryId = _selectedProdCategory.ProdCategoryId;
 
                 if (_selectedLocation == null) updateProductRow.LocationId = SelectedLocation.LocationId; //There's nothing manually selected in combobox
                 else updateProductRow.LocationId = _selectedLocation.LocationId;
-                
+
                 updateProductRow.GetInDate = _selectedGetInDate;
                 updateProductRow.BestBefore = _selectedBestBefore;
                 updateProductRow.Quantity = _selectedQuantity;
@@ -239,32 +245,74 @@ namespace InventoryManager.ViewModels
                 if (_selectedUnit == null) updateProductRow.UnitId = SelectedUnit.UnitId; //There's nothing manually selected in combobox
                 else updateProductRow.UnitId = _selectedUnit.UnitId;
 
-                try { productCommands.UpdateItem(updateProductRow); }
+                try { productCommands.UpSertItem(updateProductRow); }
                 catch (Exception ex)
                 {
-                    StatusColor = System.Windows.Media.Brushes.Red;
-                    UpdateAppStatus($"Unsuccessful update!\n{ex}"); 
+                    //StatusColor = System.Windows.Media.Brushes.Red;
+                    UpdateAppStatus($"Unsuccessful update!\n{ex}", Brushes.Red);
                 }
 
-                try
-                {
-                    ProductModelAllTablesMerged.Clear();
-                    Products.Clear();
-                    Products.AddRange(productCommands.GetList());
-                    GenerateTableProductsToDisplay();
-                    StatusColor = System.Windows.Media.Brushes.DarkGreen;
-                    UpdateAppStatus($"Update successful. Updated table reloaded.");
-                }
-                catch (Exception ex)
-                {
-                    StatusColor = System.Windows.Media.Brushes.Red;
-                    UpdateAppStatus($"Error on retrieving table \"Product\" from SQL database:\n{ex.Message}");
-                }
-                
+                ReadTableFromDatabaseAfterModification($"Update or new item creation successful. Updated table reloaded.", $"Error on retrieving table \"Product\" from SQL database:\n");
             }
-                
+            else
+            {
+                UpdateAppStatus("No record was selected for updating.", Brushes.Red);
+            }
+            createItem = false;            
         }
 
+        private bool createItem = false;
+        public void CreateItem()
+        {
+            //try
+            //{//Something is selected for each column: either from the existing data (GridView) or from the entry fields 
+                //bool areFieldsFilled = (SelectedProductName != string.Empty || SelectedProductName != null) &&
+                //    (_selectedProdCategory != null || SelectedProdCategory != null) &&
+                //    (_selectedLocation != null || SelectedLocation != null) &&
+                //    (_selectedQuantity != 0 || SelectedQuantity != 0) &&
+                //    (_selectedUnit != null || SelectedUnit != null);
+                bool areFieldsFilled = SelectedInventoryRow != null ||
+                                       SelectedProductName != string.Empty &&
+                                       _selectedProdCategory != null &&
+                                       _selectedLocation != null &&
+                                       _selectedQuantity != 0 &&
+                                       _selectedUnit != null;
+                if (areFieldsFilled)
+                {
+                    createItem = true;
+                    UpdateItem();
+                    SelectedProductName = string.Empty;
+                    _selectedProdCategory = null;
+                    _selectedLocation = null;
+                    _selectedQuantity = 0;
+                    _selectedUnit = null;
+                }
+                else UpdateAppStatus($"Not all fields have value to create a new record.", Brushes.Red);
+                
+            //}
+            //catch (Exception ex)
+            //{
+             //   UpdateAppStatus($"Not all fields have value to create a new record. {ex.Message}", Brushes.Red);
+         //   }
+        }
+
+        private void ReadTableFromDatabaseAfterModification(string successMessage, string failureMessage)
+        {
+            try
+            {
+                ProductModelAllTablesMerged.Clear();
+                Products.Clear();
+                Products.AddRange(productCommands.GetList());
+                GenerateTableProductsToDisplay();
+                //StatusColor = System.Windows.Media.Brushes.DarkGreen;
+                UpdateAppStatus(successMessage, Brushes.DarkGreen);
+            }
+            catch (Exception ex)
+            {
+                //StatusColor = System.Windows.Media.Brushes.Red;
+                UpdateAppStatus(failureMessage + ex.Message, Brushes.Red);
+            }
+        }
     }
  }
 

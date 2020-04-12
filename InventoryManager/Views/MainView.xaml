@@ -75,23 +75,23 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                         </Grid>
-                        <Button Margin="5">Create New Item</Button>
+                        <Button Margin="5" x:Name="CreateItem">Create New Item</Button>
                         <Button Margin="5" x:Name="UpdateItem">Update Item</Button>
                         <Button Margin="5">Delete Item</Button>
                     </StackPanel>
 
-                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="8"
+                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
                               x:Name="ProductModelAllTablesMerged" 
                               SelectedItem="{Binding Path=SelectedInventoryRow,Mode=TwoWay}"
-                              AutoGenerateColumns="False" Margin="0,10,0,0" IsReadOnly="True">
+                              AutoGenerateColumns="False" Margin="0,10,0,0" IsReadOnly="True" CanUserResizeRows="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}"/>
-                            <DataGridTextColumn Header="Product Category" Binding="{Binding ProdCatName}"/>
-                            <DataGridTextColumn Header="Location" Binding="{Binding LocationName}"/>
-                            <DataGridTextColumn Header="Get in Date" Binding="{Binding GetInDate}"/>
-                            <DataGridTextColumn Header="Best Before" Binding="{Binding BestBefore}"/>
-                            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
-                            <DataGridTextColumn Header="Unit" Binding="{Binding UnitName}"/>
+                            <DataGridTextColumn Width="6*" Header="Product Name" Binding="{Binding ProductName}"/>
+                            <DataGridTextColumn Width="3*" Header="Product Category" Binding="{Binding ProdCatName}"/>
+                            <DataGridTextColumn Width="3*" Header="Location" Binding="{Binding LocationName}"/>
+                            <DataGridTextColumn Width="3*" Header="Get in Date" Binding="{Binding GetInDate}"/>
+                            <DataGridTextColumn Width="3*" Header="Best Before" Binding="{Binding BestBefore}"/>
+                            <DataGridTextColumn Width="*" Header="Quantity" Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Width="*" Header="Unit" Binding="{Binding UnitName}"/>
                             <!--<DataGridComboBoxColumn Header="ProdCategoryId"
                                                     Selector.IsSelected="True"
                                                     ItemsSource="{Binding Source={StaticResource Products}}"

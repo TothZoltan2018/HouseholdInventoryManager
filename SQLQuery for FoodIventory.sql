@@ -56,6 +56,8 @@ FOREIGN KEY (UnitId) REFERENCES [Unit](UnitId)
 GO
 
 INSERT INTO [Unit] (UnitName) VALUES ('dkg');
+INSERT INTO [Unit] (UnitName) VALUES ('kg');
+INSERT INTO [Unit] (UnitName) VALUES ('dl');
 INSERT INTO [Unit] (UnitName) VALUES ('liter');
 INSERT INTO [Unit] (UnitName) VALUES ('db');
 INSERT INTO [Unit] (UnitName) VALUES ('egyéb');
@@ -158,4 +160,87 @@ AS
 		UnitName		
 	FROM
 		[FoodInventory].[dbo].[Unit]
+GO
+
+USE FoodInventory;
+GO
+CREATE PROCEDURE Inventory_Update_Item
+@ProductId INT,
+@ProductName VARCHAR(50),
+@ProdCategoryId INT,
+@LocationId INT,
+@GetInDate DATETIME,
+@BestBefore DATETIME,
+@Quantity INT,
+@UnitId INT
+AS
+	UPDATE [Product]
+	SET 	
+		ProductName = @ProductName,
+		ProdCategoryId = @ProdCategoryId,
+		LocationId = @LocationId,
+		GetInDate = @GetInDate,
+		BestBefore = @BestBefore,
+		Quantity = @Quantity,
+		UnitId = @UnitId
+	WHERE ProductId = @ProductId
+GO
+
+USE FoodInventory;
+GO
+CREATE PROCEDURE Inventory_Upsert_Item
+@ProductId INT,
+@ProductName VARCHAR(50),
+@ProdCategoryId INT,
+@LocationId INT,
+@GetInDate DATETIME,
+@BestBefore DATETIME,
+@Quantity INT,
+@UnitId INT
+AS
+	MERGE INTO Product Target
+	USING
+	(
+	SELECT
+		@ProductId ProductId,
+		@ProductName ProductName,
+		@ProdCategoryId ProdCategoryId,
+		@LocationId LocationId,
+		@GetInDate GetInDate,
+		@BestBefore BestBefore,
+		@Quantity Quantity,
+		@UnitId UnitId	
+	) AS SOURCE
+	ON
+	(
+		TARGET.ProductId = SOURCE.ProductId
+	)
+	WHEN MATCHED THEN
+		UPDATE SET
+			TARGET.ProductName = SOURCE.ProductName,
+			TARGET.ProdCategoryId = SOURCE.ProdCategoryId,
+			TARGET.LocationId = SOURCE.LocationId,
+			TARGET.GetInDate = SOURCE.GetInDate,
+			TARGET.BestBefore = SOURCE.BestBefore,
+			TARGET.Quantity = SOURCE.Quantity,
+			TARGET.UnitId = SOURCE.UnitId
+	WHEN NOT MATCHED By TARGET THEN
+		INSERT (
+			ProductName,
+			ProdCategoryId,
+			LocationId,
+			GetInDate,
+			BestBefore,
+			Quantity,
+			UnitId		
+		)
+		VALUES(
+			ProductName,
+			ProdCategoryId,
+			LocationId,
+			GetInDate,
+			BestBefore,
+			Quantity,
+			UnitId		
+		);
 GO
