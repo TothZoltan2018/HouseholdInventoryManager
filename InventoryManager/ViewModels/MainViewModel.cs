@@ -108,13 +108,7 @@ namespace InventoryManager.ViewModels
                 _selectedBestBefore = value.BestBefore;
                 _selectedQuantity = value.Quantity;
 
-                NotifyOfPropertyChange(() => SelectedProductName);
-                NotifyOfPropertyChange(() => SelectedProdCategory);
-                NotifyOfPropertyChange(() => SelectedLocation);
-                NotifyOfPropertyChange(() => SelectedGetInDate);
-                NotifyOfPropertyChange(() => SelectedBestBefore);
-                NotifyOfPropertyChange(() => SelectedQuantity);
-                NotifyOfPropertyChange(() => SelectedUnit);
+                NotifyAllPropertyFields();
 
                 NotifyOfPropertyChange(() => SelectedInventoryRow);
             }
@@ -137,19 +131,23 @@ namespace InventoryManager.ViewModels
                 var dictProdCategories = ProdCategories.ToDictionary(x => x.ProdCategoryId);
                 return dictProdCategories[SelectedInventoryRow.ProdCategoryId];
             }
-            set { _selectedProdCategory = value; }
+            set { _selectedProdCategory = value; 
+                NotifyOfPropertyChange(() => SelectedProdCategory);
+            }
         }
 
         //COMBOBOX LocationName
         private LocationModel _selectedLocation;
         public LocationModel SelectedLocation
         {
-            get
-            {
+            get {
                 var dictLocations = Locations.ToDictionary(x => x.LocationId);
                 return dictLocations[SelectedInventoryRow.LocationId];
             }
-            set { _selectedLocation = value; }
+            set {
+                _selectedLocation = value;
+                NotifyOfPropertyChange(() => SelectedLocation);
+            }
         }
 
         //DATETIMEPICKER GetInDate
@@ -185,7 +183,10 @@ namespace InventoryManager.ViewModels
                 var dictUnits = Units.ToDictionary(x => x.UnitId);
                 return dictUnits[SelectedInventoryRow.UnitId];
             }
-            set { _selectedUnit = value; }
+            set {
+                _selectedUnit = value;
+                NotifyOfPropertyChange(() => SelectedUnit);
+            }
         }
 
         private string _appStatus;
@@ -195,8 +196,8 @@ namespace InventoryManager.ViewModels
             set { _appStatus = value; }
         }
 
-        private System.Windows.Media.Brush _statusColor = System.Windows.Media.Brushes.Black;
-        public System.Windows.Media.Brush StatusColor
+        private Brush _statusColor = Brushes.Black;
+        public Brush StatusColor
         {
             get { return _statusColor; }
             set
@@ -246,13 +247,11 @@ namespace InventoryManager.ViewModels
                 else updateProductRow.UnitId = _selectedUnit.UnitId;
 
                 try { productCommands.UpSertItem(updateProductRow); }
-                catch (Exception ex)
-                {
-                    //StatusColor = System.Windows.Media.Brushes.Red;
-                    UpdateAppStatus($"Unsuccessful update!\n{ex}", Brushes.Red);
-                }
-
-                ReadTableFromDatabaseAfterModification($"Update or new item creation successful. Updated table reloaded.", $"Error on retrieving table \"Product\" from SQL database:\n");
+                catch (Exception ex) { UpdateAppStatus($"Unsuccessful update!\n{ex}", Brushes.Red); }
+                
+                ReadTableFromDatabaseAfterModification($"Update or new item creation successful. Updated table reloaded.", "Error on retrieving table \"Product\" from SQL database:\n");
+                InitializeAllPropertyFields();
+                NotifyAllPropertyFields();
             }
             else
             {
@@ -278,22 +277,44 @@ namespace InventoryManager.ViewModels
                                        _selectedQuantity != 0 &&
                                        _selectedUnit != null;
                 if (areFieldsFilled)
-                {
-                    createItem = true;
-                    UpdateItem();
-                    SelectedProductName = string.Empty;
-                    _selectedProdCategory = null;
-                    _selectedLocation = null;
-                    _selectedQuantity = 0;
-                    _selectedUnit = null;
-                }
-                else UpdateAppStatus($"Not all fields have value to create a new record.", Brushes.Red);
+            {
+                createItem = true;
+                UpdateItem();
+                ////Todo: megcsinalni egy init prameter fgvt, itt is kell, meg az elejen inicializalni
+                ////SelectedProductName = string.Empty;
+                //InitializeAllPropertyFields();
+                //NotifyAllPropertyFields();
+
+            }
+            else UpdateAppStatus($"Not all fields have value to create a new record.", Brushes.Red);
                 
             //}
             //catch (Exception ex)
             //{
              //   UpdateAppStatus($"Not all fields have value to create a new record. {ex.Message}", Brushes.Red);
          //   }
+        }
+
+        private void NotifyAllPropertyFields()
+        {
+            NotifyOfPropertyChange(() => SelectedProductName);
+            NotifyOfPropertyChange(() => SelectedProdCategory);
+            NotifyOfPropertyChange(() => SelectedLocation);
+            NotifyOfPropertyChange(() => SelectedGetInDate);
+            NotifyOfPropertyChange(() => SelectedBestBefore);
+            NotifyOfPropertyChange(() => SelectedQuantity);
+            NotifyOfPropertyChange(() => SelectedUnit);
+        }
+
+        private void InitializeAllPropertyFields()
+        {
+            _selectedProductName = string.Empty;
+            _selectedProdCategory = null;
+            _selectedLocation = null;
+            _selectedGetInDate = DateTime.Now;
+            _selectedBestBefore = DateTime.Now;
+            _selectedQuantity = 0;
+            _selectedUnit = null;
         }
 
         private void ReadTableFromDatabaseAfterModification(string successMessage, string failureMessage)
@@ -303,14 +324,25 @@ namespace InventoryManager.ViewModels
                 ProductModelAllTablesMerged.Clear();
                 Products.Clear();
                 Products.AddRange(productCommands.GetList());
-                GenerateTableProductsToDisplay();
-                //StatusColor = System.Windows.Media.Brushes.DarkGreen;
+                GenerateTableProductsToDisplay();                
                 UpdateAppStatus(successMessage, Brushes.DarkGreen);
             }
             catch (Exception ex)
-            {
-                //StatusColor = System.Windows.Media.Brushes.Red;
+            {                
                 UpdateAppStatus(failureMessage + ex.Message, Brushes.Red);
+            }
+        }
+
+        public void DeleteItem()
+        {
+            if (SelectedInventoryRow != null)
+            {
+                productCommands.DeleteItem(SelectedInventoryRow.ProductId);
+                ReadTableFromDatabaseAfterModification("Delete was successful. Updated table reloaded.", "Error on retrieving table \"Product\" from SQL database:\n");
+            }
+            else
+            {
+                UpdateAppStatus("No record was selected for deleting.", Brushes.Red);
             }
         }
     }

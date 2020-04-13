@@ -77,7 +77,7 @@
                         </Grid>
                         <Button Margin="5" x:Name="CreateItem">Create New Item</Button>
                         <Button Margin="5" x:Name="UpdateItem">Update Item</Button>
-                        <Button Margin="5">Delete Item</Button>
+                        <Button Margin="5" x:Name="DeleteItem">Delete Item</Button>
                     </StackPanel>
 
                     <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"

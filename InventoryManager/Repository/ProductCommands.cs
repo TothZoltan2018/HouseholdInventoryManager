@@ -50,5 +50,17 @@ namespace InventoryManager.Repository
                     commandType: CommandType.StoredProcedure);
             }
         }
+
+        public void DeleteItem(int productId)
+        {
+            var sqlSPC = "Inventory_Delete_Item";
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Execute(sqlSPC, new
+                { @ProductId = productId }
+                    ,commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }
