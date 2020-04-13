@@ -44,16 +44,12 @@ namespace InventoryManager.ViewModels
                 UnitCommands unitCommands = new UnitCommands(_connectionString);
                 Units.AddRange(unitCommands.GetList());
 
-                //StatusColor = System.Windows.Media.Brushes.DarkGreen;
                 UpdateAppStatus($"Database tables fetched.", Brushes.DarkGreen);
             }
-            catch (Exception ex)
-            {
-                //StatusColor = System.Windows.Media.Brushes.Red;
-                UpdateAppStatus($"Error on retrieving tables from SQL database:\n{ex.Message}", Brushes.Red);
-            }
-
+            catch (Exception ex) { UpdateAppStatus($"Error on retrieving tables from SQL database:\n{ex.Message}", Brushes.Red); }
+            
             GenerateTableProductsToDisplay();
+            InitializeAllPropertyFields();
         }
 
         private void GenerateTableProductsToDisplay()
@@ -151,7 +147,7 @@ namespace InventoryManager.ViewModels
         }
 
         //DATETIMEPICKER GetInDate
-        private DateTime _selectedGetInDate = DateTime.Now;
+        private DateTime _selectedGetInDate;
         public DateTime SelectedGetInDate
         {
             get { return _selectedGetInDate; }
@@ -159,7 +155,7 @@ namespace InventoryManager.ViewModels
         }
 
         //DATETIMEPICKER BestBefore
-        private DateTime _selectedBestBefore = DateTime.Now;
+        private DateTime _selectedBestBefore;
         public DateTime SelectedBestBefore
         {
             get { return _selectedBestBefore; }
@@ -263,36 +259,18 @@ namespace InventoryManager.ViewModels
         private bool createItem = false;
         public void CreateItem()
         {
-            //try
-            //{//Something is selected for each column: either from the existing data (GridView) or from the entry fields 
-                //bool areFieldsFilled = (SelectedProductName != string.Empty || SelectedProductName != null) &&
-                //    (_selectedProdCategory != null || SelectedProdCategory != null) &&
-                //    (_selectedLocation != null || SelectedLocation != null) &&
-                //    (_selectedQuantity != 0 || SelectedQuantity != 0) &&
-                //    (_selectedUnit != null || SelectedUnit != null);
-                bool areFieldsFilled = SelectedInventoryRow != null ||
-                                       SelectedProductName != string.Empty &&
-                                       _selectedProdCategory != null &&
-                                       _selectedLocation != null &&
-                                       _selectedQuantity != 0 &&
-                                       _selectedUnit != null;
-                if (areFieldsFilled)
+            bool areFieldsFilled = SelectedInventoryRow != null ||
+                                   SelectedProductName != string.Empty &&
+                                   _selectedProdCategory != null &&
+                                   _selectedLocation != null &&
+                                   _selectedQuantity != 0 &&
+                                   _selectedUnit != null;
+            if (areFieldsFilled)
             {
                 createItem = true;
                 UpdateItem();
-                ////Todo: megcsinalni egy init prameter fgvt, itt is kell, meg az elejen inicializalni
-                ////SelectedProductName = string.Empty;
-                //InitializeAllPropertyFields();
-                //NotifyAllPropertyFields();
-
             }
             else UpdateAppStatus($"Not all fields have value to create a new record.", Brushes.Red);
-                
-            //}
-            //catch (Exception ex)
-            //{
-             //   UpdateAppStatus($"Not all fields have value to create a new record. {ex.Message}", Brushes.Red);
-         //   }
         }
 
         private void NotifyAllPropertyFields()

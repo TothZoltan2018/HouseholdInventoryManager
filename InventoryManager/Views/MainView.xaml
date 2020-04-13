@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InventoryManager.Views"
         mc:Ignorable="d"
-        Title="Inventory Manager" Height="450" Width="800" SizeToContent="WidthAndHeight">
+        Title="Inventory Manager" Height="450" Width="800" SizeToContent="WidthAndHeight" WindowState="Maximized">
     <!--<Window.Resources>
         <CollectionViewSource x:Key="Products" Source="{Binding ProductModelAllTablesMerged}"/>
     </Window.Resources>-->
