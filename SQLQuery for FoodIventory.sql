@@ -65,6 +65,7 @@ INSERT INTO [Unit] (UnitName) VALUES ('egyéb');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Hús');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Felvágott');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Tejtermék');
+INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Készétel');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Tartós');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Zölds, Gyüm');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Mélyhűtött');
@@ -243,4 +244,19 @@ AS
 			Quantity,
 			UnitId		
 		);
+GO
+
+USE FoodInventory;
+GO
+CREATE PROCEDURE Inventory_Delete_Item
+@ProductId INT
+AS
+	DELETE FROM Product Where ProductId = @ProductId
+GO
+
+USE FoodInventory;
+GO
+CREATE PROCEDURE Inventory_EmptyTable
+AS
+	DELETE FROM Product
 GO

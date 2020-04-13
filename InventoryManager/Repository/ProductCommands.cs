@@ -62,5 +62,15 @@ namespace InventoryManager.Repository
                     ,commandType: CommandType.StoredProcedure);
             }
         }
+
+        internal void EmptyTable()
+        {
+            var sqlSPC = "Inventory_EmptyTable";
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Execute(sqlSPC, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }

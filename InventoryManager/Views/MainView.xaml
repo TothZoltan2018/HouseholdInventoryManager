@@ -123,11 +123,13 @@
                         </DataGrid.Columns>                        
                     </DataGrid>
 
-                    <StatusBar Grid.Row="2" Grid.ColumnSpan="8" Height="25" Margin="0 10 0 0">
+                    <StatusBar Grid.Row="2" Grid.ColumnSpan="6" Height="25" Margin="0 10 0 0">
                         <StatusBarItem TextBlock.TextAlignment="Left">
                             <TextBlock Foreground="{Binding Path=StatusColor}" Text="{Binding Path=AppStatus}"/>                            
-                        </StatusBarItem>
+                        </StatusBarItem>                        
                     </StatusBar>
+                    <Button Margin="0, 7" Grid.Row="2" Grid.Column="7" x:Name="EmptyTable">Empty Table</Button>
+                    
                 </Grid>
 
                 

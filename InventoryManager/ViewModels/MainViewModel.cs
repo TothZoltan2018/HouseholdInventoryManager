@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace InventoryManager.ViewModels
@@ -322,6 +323,17 @@ namespace InventoryManager.ViewModels
             {
                 UpdateAppStatus("No record was selected for deleting.", Brushes.Red);
             }
+        }
+
+        public void EmptyTable()
+        {            
+            if (MessageBox.Show("All the data in the Table will be deleted. Are you sure to go continue?", "Emptying Table", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) == MessageBoxResult.Yes)
+            {
+                productCommands.EmptyTable();
+                ReadTableFromDatabaseAfterModification("Deleting all data was successful. The empty table reloaded.", "Error on retrieving table \"Product\" from SQL database:\n");
+            }
+
+            
         }
     }
  }
