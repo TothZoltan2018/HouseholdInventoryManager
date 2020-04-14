@@ -64,8 +64,9 @@ namespace InventoryManager.ViewModels
             {
                 ProductModelAllTablesMerged productModelAllTablesMerged = new ProductModelAllTablesMerged
                 {
-                    ProductId = product.ProductId,
+                    ProductId = product.ProductId,                    
                     ProductName = product.ProductName,
+                    Description = product.Description,
                     ProdCategoryId = product.ProdCategoryId,
                     LocationId = product.LocationId,
                     GetInDate = product.GetInDate,
@@ -88,8 +89,38 @@ namespace InventoryManager.ViewModels
                 unitDictionary.TryGetValue(productModelAllTablesMerged.UnitId, out UnitModel unit);
                 productModelAllTablesMerged.UnitName = unit.UnitName;
 
+                productModelAllTablesMerged.ColorSet = ColorDataBestBeforeColumn(productModelAllTablesMerged.GetInDate, productModelAllTablesMerged.BestBefore);
+
                 ProductModelAllTablesMerged.Add(productModelAllTablesMerged);
             }
+        }
+
+        /// <summary>
+        /// Sets the backgroundcolor each row of the table on the basis of time left before reaching "BestBefore" date.
+        /// </summary>
+        /// <returns></returns>
+        private SolidColorBrush ColorDataBestBeforeColumn(DateTime getIn, DateTime bestBefore)
+        {
+            //Hogy mennyire surgos felhasznalni egy termeket, az fugg:
+            //      - Hany nap van meg a felhasznalhatosagig. Ez ProductCategoryName es LocationName
+            //                   szerint kulonbozo lehet. Pl. a hutoben levo vaj pl. 20  napig jo,
+            //                   de ugzyanaez a fagyasztoban 6 honapig is. 
+            //
+
+
+            var timeSpan = bestBefore - getIn;
+            var isInGreenDateSpan = DateTime.Now < getIn.AddDays(timeSpan.TotalDays * 0.25);
+            var isInYellowDateSpan = DateTime.Now < getIn.AddDays(timeSpan.TotalDays * 0.5);
+            var isInOrangeDateSpan = DateTime.Now < getIn.AddDays(timeSpan.TotalDays * 0.75);
+            var isInRedDateSpan = DateTime.Now <= getIn.AddDays(timeSpan.TotalDays);
+
+
+
+            if (isInGreenDateSpan) return new SolidColorBrush(Color.FromArgb(0x39, 0x00, 0xFF, 0x00));
+            if (isInYellowDateSpan) return new SolidColorBrush(Color.FromArgb(0x39, 0xFF, 0xFF, 0x80));
+            if (isInOrangeDateSpan) return new SolidColorBrush(Color.FromArgb(0x39, 0xFF, 0x80, 0x00));
+            if (isInRedDateSpan) return new SolidColorBrush(Color.FromArgb(0x39, 0xFF, 0x00, 0x00));
+            else return new SolidColorBrush(Colors.SlateGray);
         }
 
         private ProductModelAllTablesMerged _selectedInventoryRow;
@@ -99,8 +130,9 @@ namespace InventoryManager.ViewModels
             set
             {
                 _selectedInventoryRow = value;
-
+                                
                 _selectedProductName = value.ProductName;
+                _selectedDescription = value.Description;
                 _selectedGetInDate = value.GetInDate;
                 _selectedBestBefore = value.BestBefore;
                 _selectedQuantity = value.Quantity;
@@ -118,6 +150,15 @@ namespace InventoryManager.ViewModels
             get { return _selectedProductName; }
             set { _selectedProductName = value; }
         }
+
+        //TEXTBOX Description
+        string _selectedDescription;
+        public string SelectedDescription
+        {
+            get { return _selectedDescription; }
+            set { _selectedDescription = value; }
+        }
+
 
         //COMBOBOX ProdCategoryName
         private ProdCategoryModel _selectedProdCategory;
@@ -164,8 +205,8 @@ namespace InventoryManager.ViewModels
         }
 
         //Validated TEXTBOX Quantity
-        private int _selectedQuantity;
-        public int SelectedQuantity
+        private float _selectedQuantity;
+        public float SelectedQuantity
         {
             get { return _selectedQuantity; }
             set { _selectedQuantity = value; }
@@ -230,6 +271,8 @@ namespace InventoryManager.ViewModels
 
                 updateProductRow.ProductName = SelectedProductName;
 
+                updateProductRow.Description = SelectedDescription;
+
                 if (_selectedProdCategory == null) updateProductRow.ProdCategoryId = SelectedProdCategory.ProdCategoryId; //There's nothing manually selected in combobox
                 else updateProductRow.ProdCategoryId = _selectedProdCategory.ProdCategoryId;
 
@@ -262,6 +305,7 @@ namespace InventoryManager.ViewModels
         {
             bool areFieldsFilled = SelectedInventoryRow != null ||
                                    SelectedProductName != string.Empty &&
+                                   //Description can be null in database
                                    _selectedProdCategory != null &&
                                    _selectedLocation != null &&
                                    _selectedQuantity != 0 &&
@@ -277,6 +321,7 @@ namespace InventoryManager.ViewModels
         private void NotifyAllPropertyFields()
         {
             NotifyOfPropertyChange(() => SelectedProductName);
+            NotifyOfPropertyChange(() => SelectedDescription);
             NotifyOfPropertyChange(() => SelectedProdCategory);
             NotifyOfPropertyChange(() => SelectedLocation);
             NotifyOfPropertyChange(() => SelectedGetInDate);
@@ -288,6 +333,7 @@ namespace InventoryManager.ViewModels
         private void InitializeAllPropertyFields()
         {
             _selectedProductName = string.Empty;
+            _selectedDescription = "-";
             _selectedProdCategory = null;
             _selectedLocation = null;
             _selectedGetInDate = DateTime.Now;
@@ -332,8 +378,6 @@ namespace InventoryManager.ViewModels
                 productCommands.EmptyTable();
                 ReadTableFromDatabaseAfterModification("Deleting all data was successful. The empty table reloaded.", "Error on retrieving table \"Product\" from SQL database:\n");
             }
-
-            
         }
     }
  }

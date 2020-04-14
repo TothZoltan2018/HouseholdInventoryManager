@@ -30,7 +30,8 @@ FOREIGN KEY (LocCategoryId) REFERENCES LocCategory(LocCategoryId)
 
 CREATE TABLE [Product] (
 ProductId INT IDENTITY(1, 1) NOT NULL,
-[ProductName] VARCHAR(50) NOT NULL,
+ProductName VARCHAR(50) NOT NULL,
+[Description] VARCHAR(50),
 ProdCategoryId INT NOT NULL,
 LocationId INT NOT NULL,
 PRIMARY KEY (ProductId),	
@@ -46,7 +47,7 @@ GO
 
 ALTER TABLE [Product]
 ADD
-Quantity INT NOT NULL DEFAULT(1)
+Quantity FLOAT NOT NULL DEFAULT(1)
 GO
 
 ALTER TABLE [Product]
@@ -65,6 +66,7 @@ INSERT INTO [Unit] (UnitName) VALUES ('egyéb');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Hús');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Felvágott');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Tejtermék');
+INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Tojás');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Készétel');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Tartós');
 INSERT INTO [ProdCategory] (ProdCatName) VALUES ('Zölds, Gyüm');
@@ -87,12 +89,9 @@ INSERT INTO [Location] (LocationName, LocCategoryId) VALUES ('Mosókonyha', 3);
 INSERT INTO [Location] (LocationName, LocCategoryId) VALUES ('Garázs', 4);
 INSERT INTO [Location] (LocationName, LocCategoryId) VALUES ('Egyéb', 4);
 
-INSERT INTO [Product] ([ProductName], ProdCategoryId, LocationId, UnitId ) VALUES ('Csirkemell', 1, 2, 1);
+INSERT INTO [Product] ([ProductName], [Description], ProdCategoryId, LocationId, UnitId ) VALUES ('Csirkemell', 'pipihusi', 1, 2, 1);
 INSERT INTO [Product] ([ProductName], ProdCategoryId, LocationId, UnitId ) VALUES ('Karaj', 1, 2, 1);
 INSERT INTO [Product] ([ProductName], ProdCategoryId, LocationId, UnitId ) VALUES ('Pick csirkepárizsi', 2, 1, 1);
-INSERT INTO [Product] ([ProductName], ProdCategoryId, LocationId, UnitId ) VALUES ('Csirkemell', 1, 2, 1);
-INSERT INTO [Product] ([ProductName], ProdCategoryId, LocationId, UnitId ) VALUES ('Csirkemell', 1, 2, 1);
-INSERT INTO [Product] ([ProductName], ProdCategoryId, LocationId, UnitId ) VALUES ('Csirkemell', 1, 2, 1);
 INSERT INTO [Product] ([ProductName], ProdCategoryId, LocationId, UnitId ) VALUES ('Csirkemell', 1, 2, 1);
 INSERT INTO [Product] ([ProductName], ProdCategoryId, LocationId, UnitId ) VALUES ('Karaj', 1, 2, 1);
 INSERT INTO [Product] ([ProductName], ProdCategoryId, LocationId, UnitId ) VALUES ('Karaj', 1, 2, 1);
@@ -108,6 +107,7 @@ AS
 	SELECT
 		ProductId,
 		ProductName,
+		[Description],
 		ProdCategoryId,
 		LocationId,
 		GetInDate,
@@ -168,16 +168,18 @@ GO
 CREATE PROCEDURE Inventory_Update_Item
 @ProductId INT,
 @ProductName VARCHAR(50),
+@Description VARCHAR(50),
 @ProdCategoryId INT,
 @LocationId INT,
 @GetInDate DATETIME,
 @BestBefore DATETIME,
-@Quantity INT,
+@Quantity FLOAT,
 @UnitId INT
 AS
 	UPDATE [Product]
 	SET 	
 		ProductName = @ProductName,
+		[Description] = @Description,
 		ProdCategoryId = @ProdCategoryId,
 		LocationId = @LocationId,
 		GetInDate = @GetInDate,
@@ -192,11 +194,12 @@ GO
 CREATE PROCEDURE Inventory_Upsert_Item
 @ProductId INT,
 @ProductName VARCHAR(50),
+@Description VARCHAR(50),
 @ProdCategoryId INT,
 @LocationId INT,
 @GetInDate DATETIME,
 @BestBefore DATETIME,
-@Quantity INT,
+@Quantity FLOAT,
 @UnitId INT
 AS
 	MERGE INTO Product Target
@@ -205,6 +208,7 @@ AS
 	SELECT
 		@ProductId ProductId,
 		@ProductName ProductName,
+		@Description [Description],
 		@ProdCategoryId ProdCategoryId,
 		@LocationId LocationId,
 		@GetInDate GetInDate,
@@ -219,6 +223,7 @@ AS
 	WHEN MATCHED THEN
 		UPDATE SET
 			TARGET.ProductName = SOURCE.ProductName,
+			TARGET.[Description] = SOURCE.[Description],
 			TARGET.ProdCategoryId = SOURCE.ProdCategoryId,
 			TARGET.LocationId = SOURCE.LocationId,
 			TARGET.GetInDate = SOURCE.GetInDate,
@@ -228,6 +233,7 @@ AS
 	WHEN NOT MATCHED By TARGET THEN
 		INSERT (
 			ProductName,
+			[Description],
 			ProdCategoryId,
 			LocationId,
 			GetInDate,
@@ -237,6 +243,7 @@ AS
 		)
 		VALUES(
 			ProductName,
+			[Description],
 			ProdCategoryId,
 			LocationId,
 			GetInDate,
@@ -260,3 +267,5 @@ CREATE PROCEDURE Inventory_EmptyTable
 AS
 	DELETE FROM Product
 GO
+
+DELETE FROM Unit

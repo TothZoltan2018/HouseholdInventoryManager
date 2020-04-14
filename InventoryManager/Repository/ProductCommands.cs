@@ -40,6 +40,7 @@ namespace InventoryManager.Repository
                 {
                     @ProductId = productModel.ProductId,
                     @ProductName = productModel.ProductName,
+                    @Description = productModel.Description,
                     @ProdCategoryId = productModel.ProdCategoryId,
                     @LocationId = productModel.LocationId,
                     @GetInDate = productModel.GetInDate,

@@ -23,7 +23,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
-                        <!--<ColumnDefinition Width="*" />-->
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -38,36 +38,41 @@
                     </StackPanel>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="1">
+                        <TextBlock Text="Description" FontWeight="Bold" Margin="0 10"/>
+                        <TextBox Text="{Binding Path=SelectedDescription, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="2">
                         <TextBlock Text="Product Category" FontWeight="Bold" Margin="0 10"/>
                         <ComboBox ItemsSource="{Binding Path=ProdCategories}" DisplayMemberPath="ProdCatName" SelectedItem="{Binding Path=SelectedProdCategory, Mode=TwoWay}"/>                              
                     </StackPanel>
 
-                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="2">
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="3">
                         <TextBlock Text="Location" FontWeight="Bold" Margin="0 10"/>
                         <ComboBox ItemsSource="{Binding Path=Locations}" DisplayMemberPath="LocationName" SelectedItem="{Binding Path=SelectedLocation, Mode=TwoWay}"/>                            
                      </StackPanel>
 
-                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="3">
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="4">
                         <TextBlock Text="Get in Date" FontWeight="Bold" Margin="0 10"/>
                         <DatePicker SelectedDate="{Binding SelectedGetInDate, Mode=TwoWay}" BorderThickness="0" />                        
                     </StackPanel>
 
-                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="4">
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="5">
                         <TextBlock Text="Best Before" FontWeight="Bold" Margin="0 10"/>
                         <DatePicker SelectedDate="{Binding SelectedBestBefore, Mode=TwoWay}" BorderThickness="0" />
                     </StackPanel>
 
-                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="5">
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="6">
                         <TextBlock Text="Quantity" FontWeight="Bold" Margin="0 10"/>
                         <TextBox Name="Quantity" PreviewTextInput="NumberValidationTextBoxQuantity" Text="{Binding Path=SelectedQuantity, Mode=TwoWay}"/>
                     </StackPanel>
                     
-                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="6">
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="7">
                         <TextBlock Text="Unit" FontWeight="Bold" Margin="0 10"/>
                         <ComboBox ItemsSource="{Binding Path=Units}" DisplayMemberPath="UnitName" SelectedItem="{Binding Path=SelectedUnit, Mode=TwoWay}"/>
                     </StackPanel>
 
-                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="7">
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="8">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -80,16 +85,29 @@
                         <Button Margin="5" x:Name="DeleteItem">Delete Item</Button>
                     </StackPanel>
 
-                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
+                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7"
                               x:Name="ProductModelAllTablesMerged" 
                               SelectedItem="{Binding Path=SelectedInventoryRow,Mode=TwoWay}"
                               AutoGenerateColumns="False" Margin="0,10,0,0" IsReadOnly="True" CanUserResizeRows="False">
+                        <!--<DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Background" Value="{Binding ColorSet}"/>
+                            </Style>
+                        </DataGrid.RowStyle>-->
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="6*" Header="Product Name" Binding="{Binding ProductName}"/>
                             <DataGridTextColumn Width="3*" Header="Product Category" Binding="{Binding ProdCatName}"/>
+                            <DataGridTextColumn Width="3*" Header="Description" Binding="{Binding Description}"/>
                             <DataGridTextColumn Width="3*" Header="Location" Binding="{Binding LocationName}"/>
                             <DataGridTextColumn Width="3*" Header="Get in Date" Binding="{Binding GetInDate}"/>
-                            <DataGridTextColumn Width="3*" Header="Best Before" Binding="{Binding BestBefore}"/>
+                            <DataGridTextColumn Width="3*" Header="Best Before" Binding="{Binding BestBefore}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Background" Value="{Binding ColorSet}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            
                             <DataGridTextColumn Width="*" Header="Quantity" Binding="{Binding Quantity}"/>
                             <DataGridTextColumn Width="*" Header="Unit" Binding="{Binding UnitName}"/>
                             <!--<DataGridComboBoxColumn Header="ProdCategoryId"
@@ -128,7 +146,7 @@
                             <TextBlock Foreground="{Binding Path=StatusColor}" Text="{Binding Path=AppStatus}"/>                            
                         </StatusBarItem>                        
                     </StatusBar>
-                    <Button Margin="0, 7" Grid.Row="2" Grid.Column="7" x:Name="EmptyTable">Empty Table</Button>
+                    <Button Margin="0, 7" Grid.Row="2" Grid.Column="8" x:Name="EmptyTable">Empty Table</Button>
                     
                 </Grid>
 

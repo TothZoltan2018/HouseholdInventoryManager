@@ -10,11 +10,12 @@ namespace InventoryManager.Models
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
+        public string Description { get; set; }
         public int ProdCategoryId { get; set; }
         public int LocationId { get; set; }        
         public DateTime GetInDate { get; set; }
         public DateTime BestBefore { get; set; }
-        public int Quantity { get; set; }
+        public float Quantity { get; set; }
         public int UnitId { get; set; }
     }
 }
