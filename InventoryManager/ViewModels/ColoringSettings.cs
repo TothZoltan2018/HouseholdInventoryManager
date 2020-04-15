@@ -27,8 +27,30 @@ namespace InventoryManager.ViewModels
                 Properties.Settings.Default.Save();
             }
         }
-            public int DefaultFor2Color { get; set; } = Properties.Settings.Default.DefaultFor2Color;
-            public int DefaultFor3Color { get; set; } = Properties.Settings.Default.DefaultFor3Color;
+                
+        int _defaultFor2Color = Properties.Settings.Default.DefaultFor2Color;
+        public int DefaultFor2Color
+        {
+            get { return _defaultFor2Color; }
+            set
+            {
+                _defaultFor2Color = value;            
+                Properties.Settings.Default.DefaultFor2Color = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        int _defaultFor3Color = Properties.Settings.Default.DefaultFor3Color;
+        public int DefaultFor3Color
+        {
+            get { return _defaultFor3Color; }
+            set
+            {
+                _defaultFor3Color = value;
+                Properties.Settings.Default.DefaultFor3Color = value;
+                Properties.Settings.Default.Save();
+            }
+        }
             
 
             //public int[] MeatInFreezer { get; set; }
@@ -45,6 +67,9 @@ namespace InventoryManager.ViewModels
             {
                 
                 NotifyOfPropertyChange(() => DefaultFor1Color);
+                NotifyOfPropertyChange(() => DefaultFor2Color);
+                NotifyOfPropertyChange(() => DefaultFor3Color);
+
                 int timeTillExp = (int)(bestBefore - DateTime.Now).TotalDays;            
 
                 if (timeTillExp < 0) return new SolidColorBrush(Colors.SlateGray);    

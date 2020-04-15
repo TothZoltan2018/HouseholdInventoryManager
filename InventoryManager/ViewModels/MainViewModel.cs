@@ -52,7 +52,7 @@ namespace InventoryManager.ViewModels
             InitializeAllPropertyFields();
         }
 
-        private void GenerateTableProductsToDisplay()
+        public void GenerateTableProductsToDisplay()
         {
             var prodcatDictionary = ProdCategories.ToDictionary(cat => cat.ProdCategoryId);
             var locDictionary = Locations.ToDictionary(loc => loc.LocationId);
@@ -342,6 +342,11 @@ namespace InventoryManager.ViewModels
             {
                 UpdateAppStatus("No record was selected for deleting.", Brushes.Red);
             }
+        }
+
+        public void RefreshTable()
+        {
+            ReadTableFromDatabaseAfterModification("Refreshing table was successful. Table reloaded.", "Error on retrieving table \"Product\" from SQL database:\n");
         }
 
         public void EmptyTable()
