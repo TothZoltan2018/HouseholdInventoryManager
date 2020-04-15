@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace InventoryManager.ViewModels
 {
-    class MainViewModel : Screen
+    partial class MainViewModel : Screen
     {
         private readonly string _connectionString = @"Data Source=.\sqlexpress;Initial Catalog=FoodInventory;Integrated Security=True";
 
@@ -24,8 +24,7 @@ namespace InventoryManager.ViewModels
 
         ProductCommands productCommands;
         ProductModel updateProductRow;
-
-
+        
         public MainViewModel()
         {
             try
@@ -89,38 +88,12 @@ namespace InventoryManager.ViewModels
                 unitDictionary.TryGetValue(productModelAllTablesMerged.UnitId, out UnitModel unit);
                 productModelAllTablesMerged.UnitName = unit.UnitName;
 
+                //DateColoring dateColoring = new DateColoring();
+                //productModelAllTablesMerged.ColorSet = dateColoring.ColorDataBestBeforeColumn(productModelAllTablesMerged.GetInDate, productModelAllTablesMerged.BestBefore);
                 productModelAllTablesMerged.ColorSet = ColorDataBestBeforeColumn(productModelAllTablesMerged.GetInDate, productModelAllTablesMerged.BestBefore);
 
                 ProductModelAllTablesMerged.Add(productModelAllTablesMerged);
             }
-        }
-
-        /// <summary>
-        /// Sets the backgroundcolor each row of the table on the basis of time left before reaching "BestBefore" date.
-        /// </summary>
-        /// <returns></returns>
-        private SolidColorBrush ColorDataBestBeforeColumn(DateTime getIn, DateTime bestBefore)
-        {
-            //Hogy mennyire surgos felhasznalni egy termeket, az fugg:
-            //      - Hany nap van meg a felhasznalhatosagig. Ez ProductCategoryName es LocationName
-            //                   szerint kulonbozo lehet. Pl. a hutoben levo vaj pl. 20  napig jo,
-            //                   de ugzyanaez a fagyasztoban 6 honapig is. 
-            //
-
-
-            var timeSpan = bestBefore - getIn;
-            var isInGreenDateSpan = DateTime.Now < getIn.AddDays(timeSpan.TotalDays * 0.25);
-            var isInYellowDateSpan = DateTime.Now < getIn.AddDays(timeSpan.TotalDays * 0.5);
-            var isInOrangeDateSpan = DateTime.Now < getIn.AddDays(timeSpan.TotalDays * 0.75);
-            var isInRedDateSpan = DateTime.Now <= getIn.AddDays(timeSpan.TotalDays);
-
-
-
-            if (isInGreenDateSpan) return new SolidColorBrush(Color.FromArgb(0x39, 0x00, 0xFF, 0x00));
-            if (isInYellowDateSpan) return new SolidColorBrush(Color.FromArgb(0x39, 0xFF, 0xFF, 0x80));
-            if (isInOrangeDateSpan) return new SolidColorBrush(Color.FromArgb(0x39, 0xFF, 0x80, 0x00));
-            if (isInRedDateSpan) return new SolidColorBrush(Color.FromArgb(0x39, 0xFF, 0x00, 0x00));
-            else return new SolidColorBrush(Colors.SlateGray);
         }
 
         private ProductModelAllTablesMerged _selectedInventoryRow;

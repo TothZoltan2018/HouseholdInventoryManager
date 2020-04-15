@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+//using InventoryManager.ViewModels;
 
 using System.Text.RegularExpressions;
 
@@ -24,6 +25,22 @@ namespace InventoryManager.Views
         public MainView()
         {
             InitializeComponent();
+
+            //MainViewModel.DateColoring dateColoring = new MainViewModel.DateColoring();
+            //dateColoring.DefaultFor0Color = Properties.Settings.Default.DefaultFor0Color;
+            //dateColoring.DefaultFor1Color = Properties.Settings.Default.DefaultFor1Color;
+            //dateColoring.DefaultFor2Color = Properties.Settings.Default.DefaultFor2Color;
+            //dateColoring.DefaultFor3Color = Properties.Settings.Default.DefaultFor3Color;
+
+            //List<int> Coloring = new List<int>();
+            //Coloring.Add((int)Properties.Settings.Default.DefaultFor0Color.TotalDays);
+            //Coloring.Add((int)Properties.Settings.Default.DefaultFor1Color.TotalDays);
+            //Coloring.Add((int)Properties.Settings.Default.DefaultFor2Color.TotalDays);
+            //Coloring.Add((int)Properties.Settings.Default.DefaultFor3Color.TotalDays);
+
+            //Colorxxx.
+
+
 
         }
 

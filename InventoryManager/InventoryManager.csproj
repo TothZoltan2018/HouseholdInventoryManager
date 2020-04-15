@@ -86,7 +86,9 @@
     <Compile Include="Repository\ProductCommands.cs" />
     <Compile Include="Models\ProductModelAllTablesMerged.cs" />
     <Compile Include="Repository\UnitCommands.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ColoringSettings.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -112,7 +114,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>

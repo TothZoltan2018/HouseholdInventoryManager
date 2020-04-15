@@ -146,20 +146,124 @@
                             <TextBlock Foreground="{Binding Path=StatusColor}" Text="{Binding Path=AppStatus}"/>                            
                         </StatusBarItem>                        
                     </StatusBar>
-                    <Button Margin="0, 7" Grid.Row="2" Grid.Column="8" x:Name="EmptyTable">Empty Table</Button>
+                    <Button Margin="0, 7" Grid.Row="2" Grid.Column="8" x:Name="EmptyTable">Empty Table</Button>                    
+                </Grid>
+                
+            </TabItem>
+            <TabItem Header="App Settings">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Product Category" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Location Category" FontWeight="Bold"/>                            
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Days till exp." Background="#39FFFF80" />
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Days till exp." Background="#39FF8000" />
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="Days till exp." Background="#39FF0000" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Text="Default values"/>                            
+                            <TextBlock Grid.Row="2" Grid.Column="0"/>
+                            <TextBlock Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Text="Meat" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="Freezer"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="Refrigerator"/>
+                            
+                            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Path=DefaultFor1Color, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Path=DefaultFor2Color, Mode=TwoWay}"/>
+                            <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding Path=DefaultFor3Color, Mode=TwoWay}"/>
+
+                            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Path=Colorxxx[0], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Path=MeatInFreezer[1], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="4" Text="{Binding Path=MeatInFreezer[2], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding Path=MeatInFreezer[3], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding Path=MeatInRefrigerator[0], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding Path=MeatInRefrigerator[1], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="4" Text="{Binding Path=MeatInRefrigerator[2], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding Path=MeatInRefrigerator[3], Mode=TwoWay}"/>
+
+                            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Path=MeatInFreezer[0], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Path=MeatInFreezer[1], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="4" Text="{Binding Path=MeatInFreezer[2], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding Path=MeatInFreezer[3], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding Path=MeatInRefrigerator[0], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding Path=MeatInRefrigerator[1], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="4" Text="{Binding Path=MeatInRefrigerator[2], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding Path=MeatInRefrigerator[3], Mode=TwoWay}"/>
+
+                            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Path=MeatInFreezer[0], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Path=MeatInFreezer[1], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="4" Text="{Binding Path=MeatInFreezer[2], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding Path=MeatInFreezer[3], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding Path=MeatInRefrigerator[0], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding Path=MeatInRefrigerator[1], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="4" Text="{Binding Path=MeatInRefrigerator[2], Mode=TwoWay}"/>
+                            <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding Path=MeatInRefrigerator[3], Mode=TwoWay}"/>
+
+
+
+
+                        </Grid>
+                        
+                    </StackPanel>
+
+                    <!--<ListView Grid.Row="1" Grid.Column="0" Margin="5" Name="ColoringSettings">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Product Category" Width="100"/>
+                                <GridViewColumn Header="Location Category" Width="100"/>
+                                <GridViewColumn Header="Green" Width="50"/>
+                                <GridViewColumn Header="Yellow" Width="50"/>
+                                <GridViewColumn Header="Orange" Width="50"/>
+                                <GridViewColumn Header="Red" Width="50"/>                                
+                            </GridView>
+                            
+                        </ListView.View>
+                        
+                    </ListView>-->
                     
+                    
+                    
+                    
+
                 </Grid>
 
-                
             </TabItem>
-            <TabItem Header="Akarmi">
-                
-            </TabItem>
+            
             <TabItem Header="barmi">
                 
             </TabItem>
-                     
-            
+            <Grid Height="100" Width="100"/>
+
+
         </TabControl>
         
         
