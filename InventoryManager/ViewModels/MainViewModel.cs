@@ -90,7 +90,7 @@ namespace InventoryManager.ViewModels
 
                 //DateColoring dateColoring = new DateColoring();
                 //productModelAllTablesMerged.ColorSet = dateColoring.ColorDataBestBeforeColumn(productModelAllTablesMerged.GetInDate, productModelAllTablesMerged.BestBefore);
-                productModelAllTablesMerged.ColorSet = ColorDataBestBeforeColumn(productModelAllTablesMerged.GetInDate, productModelAllTablesMerged.BestBefore);
+                productModelAllTablesMerged.ColorSet = ColorDataBestBeforeColumn(productModelAllTablesMerged);
 
                 ProductModelAllTablesMerged.Add(productModelAllTablesMerged);
             }

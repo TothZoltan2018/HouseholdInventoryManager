@@ -2,14 +2,89 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="InventoryManager.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DefaultFor1Color" Type="System.Int32" Scope="User">
+    <Setting Name="DefaultForColor1" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">20</Value>
     </Setting>
-    <Setting Name="DefaultFor2Color" Type="System.Int32" Scope="User">
+    <Setting Name="DefaultForColor2" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
-    <Setting Name="DefaultFor3Color" Type="System.Int32" Scope="User">
+    <Setting Name="DefaultForColor3" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="MeatInFreezerForColor1" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MeatInFreezerForColor2" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MeatInFreezerForColor3" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MeatInRefrigeratorForColor1" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MeatInRefrigeratorForColor2" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MeatInRefrigeratorForColor3" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ColdCollationInFreezerForColor1" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ColdCollationInFreezerForColor2" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ColdCollationInFreezerForColor3" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ColdCollationInRefrigeratorForColor1" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ColdCollationInRefrigeratorForColor2" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ColdCollationInRefrigeratorForColor3" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Meat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Hús</Value>
+    </Setting>
+    <Setting Name="ColdCollation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Felvágott</Value>
+    </Setting>
+    <Setting Name="Dairy" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Tejtermék</Value>
+    </Setting>
+    <Setting Name="Egg" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Tojás</Value>
+    </Setting>
+    <Setting Name="Ready" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Készétel</Value>
+    </Setting>
+    <Setting Name="Conserve" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Tartós</Value>
+    </Setting>
+    <Setting Name="VegsAndFruits" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Zölds, Gyüm</Value>
+    </Setting>
+    <Setting Name="DeepFrozen" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Mélyhutött</Value>
+    </Setting>
+    <Setting Name="Munchies" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Nasi</Value>
+    </Setting>
+    <Setting Name="Chemicals" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Készétel</Value>
+    </Setting>
+    <Setting Name="Freezer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Fagyasztó</Value>
+    </Setting>
+    <Setting Name="Refrigerator" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Huto</Value>
+    </Setting>
+    <Setting Name="Flat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Lakás</Value>
     </Setting>
   </Settings>
 </SettingsFile>
