@@ -310,7 +310,7 @@ namespace InventoryManager.ViewModels
             _selectedProdCategory = null;
             _selectedLocation = null;
             _selectedGetInDate = DateTime.Now;
-            _selectedBestBefore = DateTime.Now;
+            _selectedBestBefore = DateTime.Now + TimeSpan.FromDays(14);
             _selectedQuantity = 0;
             _selectedUnit = null;
         }

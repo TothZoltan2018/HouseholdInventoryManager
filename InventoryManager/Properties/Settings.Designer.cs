@@ -358,5 +358,401 @@ namespace InventoryManager.Properties {
                 this["Flat"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DairyInFreezerForColor1 {
+            get {
+                return ((int)(this["DairyInFreezerForColor1"]));
+            }
+            set {
+                this["DairyInFreezerForColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DairyInFreezerForColor2 {
+            get {
+                return ((int)(this["DairyInFreezerForColor2"]));
+            }
+            set {
+                this["DairyInFreezerForColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DairyInFreezerForColor3 {
+            get {
+                return ((int)(this["DairyInFreezerForColor3"]));
+            }
+            set {
+                this["DairyInFreezerForColor3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DairyInRefrigeratorForColor1 {
+            get {
+                return ((int)(this["DairyInRefrigeratorForColor1"]));
+            }
+            set {
+                this["DairyInRefrigeratorForColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DairyInRefrigeratorForColor2 {
+            get {
+                return ((int)(this["DairyInRefrigeratorForColor2"]));
+            }
+            set {
+                this["DairyInRefrigeratorForColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DairyInRefrigeratorForColor3 {
+            get {
+                return ((int)(this["DairyInRefrigeratorForColor3"]));
+            }
+            set {
+                this["DairyInRefrigeratorForColor3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int EggInRefrigeratorForColor1 {
+            get {
+                return ((int)(this["EggInRefrigeratorForColor1"]));
+            }
+            set {
+                this["EggInRefrigeratorForColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int EggInRefrigeratorForColor2 {
+            get {
+                return ((int)(this["EggInRefrigeratorForColor2"]));
+            }
+            set {
+                this["EggInRefrigeratorForColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int EggInRefrigeratorForColor3 {
+            get {
+                return ((int)(this["EggInRefrigeratorForColor3"]));
+            }
+            set {
+                this["EggInRefrigeratorForColor3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int EggInFlatForColor1 {
+            get {
+                return ((int)(this["EggInFlatForColor1"]));
+            }
+            set {
+                this["EggInFlatForColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int EggInFlatForColor2 {
+            get {
+                return ((int)(this["EggInFlatForColor2"]));
+            }
+            set {
+                this["EggInFlatForColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int EggInFlatForColor3 {
+            get {
+                return ((int)(this["EggInFlatForColor3"]));
+            }
+            set {
+                this["EggInFlatForColor3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ReadyInFreezerForColor1 {
+            get {
+                return ((int)(this["ReadyInFreezerForColor1"]));
+            }
+            set {
+                this["ReadyInFreezerForColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ReadyInFreezerForColor2 {
+            get {
+                return ((int)(this["ReadyInFreezerForColor2"]));
+            }
+            set {
+                this["ReadyInFreezerForColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ReadyInFreezerForColor3 {
+            get {
+                return ((int)(this["ReadyInFreezerForColor3"]));
+            }
+            set {
+                this["ReadyInFreezerForColor3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ReadyInRefrigeratorForColor1 {
+            get {
+                return ((int)(this["ReadyInRefrigeratorForColor1"]));
+            }
+            set {
+                this["ReadyInRefrigeratorForColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ReadyInRefrigeratorForColor2 {
+            get {
+                return ((int)(this["ReadyInRefrigeratorForColor2"]));
+            }
+            set {
+                this["ReadyInRefrigeratorForColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ReadyInRefrigeratorForColor3 {
+            get {
+                return ((int)(this["ReadyInRefrigeratorForColor3"]));
+            }
+            set {
+                this["ReadyInRefrigeratorForColor3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ConserveForColor1 {
+            get {
+                return ((int)(this["ConserveForColor1"]));
+            }
+            set {
+                this["ConserveForColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ConserveForColor2 {
+            get {
+                return ((int)(this["ConserveForColor2"]));
+            }
+            set {
+                this["ConserveForColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ConserveForColor3 {
+            get {
+                return ((int)(this["ConserveForColor3"]));
+            }
+            set {
+                this["ConserveForColor3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int VegsAndFruitsInRefrigeratorForColor1 {
+            get {
+                return ((int)(this["VegsAndFruitsInRefrigeratorForColor1"]));
+            }
+            set {
+                this["VegsAndFruitsInRefrigeratorForColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int VegsAndFruitsInRefrigeratorForColor2 {
+            get {
+                return ((int)(this["VegsAndFruitsInRefrigeratorForColor2"]));
+            }
+            set {
+                this["VegsAndFruitsInRefrigeratorForColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int VegsAndFruitsInRefrigeratorForColor3 {
+            get {
+                return ((int)(this["VegsAndFruitsInRefrigeratorForColor3"]));
+            }
+            set {
+                this["VegsAndFruitsInRefrigeratorForColor3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int VegsAndFruitsInFlatForColor1 {
+            get {
+                return ((int)(this["VegsAndFruitsInFlatForColor1"]));
+            }
+            set {
+                this["VegsAndFruitsInFlatForColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int VegsAndFruitsInFlatForColor2 {
+            get {
+                return ((int)(this["VegsAndFruitsInFlatForColor2"]));
+            }
+            set {
+                this["VegsAndFruitsInFlatForColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int VegsAndFruitsInFlatForColor3 {
+            get {
+                return ((int)(this["VegsAndFruitsInFlatForColor3"]));
+            }
+            set {
+                this["VegsAndFruitsInFlatForColor3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DeepFrozenInFreezerForColor1 {
+            get {
+                return ((int)(this["DeepFrozenInFreezerForColor1"]));
+            }
+            set {
+                this["DeepFrozenInFreezerForColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DeepFrozenInFreezerForColor2 {
+            get {
+                return ((int)(this["DeepFrozenInFreezerForColor2"]));
+            }
+            set {
+                this["DeepFrozenInFreezerForColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DeepFrozenInFreezerForColor3 {
+            get {
+                return ((int)(this["DeepFrozenInFreezerForColor3"]));
+            }
+            set {
+                this["DeepFrozenInFreezerForColor3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DeepFrozenInRefrigeratorForColor1 {
+            get {
+                return ((int)(this["DeepFrozenInRefrigeratorForColor1"]));
+            }
+            set {
+                this["DeepFrozenInRefrigeratorForColor1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DeepFrozenInRefrigeratorForColor2 {
+            get {
+                return ((int)(this["DeepFrozenInRefrigeratorForColor2"]));
+            }
+            set {
+                this["DeepFrozenInRefrigeratorForColor2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DeepFrozenInRefrigeratorForColor3 {
+            get {
+                return ((int)(this["DeepFrozenInRefrigeratorForColor3"]));
+            }
+            set {
+                this["DeepFrozenInRefrigeratorForColor3"] = value;
+            }
+        }
     }
 }

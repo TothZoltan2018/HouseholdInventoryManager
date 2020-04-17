@@ -20,15 +20,15 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -57,15 +57,15 @@
                         <TextBlock Text="Product Name" FontWeight="Bold" Margin="0 10"/>
                         <TextBox Text="{Binding Path=SelectedProductName, Mode=TwoWay}"/>
                     </StackPanel>
-
+                    
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="1">
-                        <TextBlock Text="Description" FontWeight="Bold" Margin="0 10"/>
-                        <TextBox Text="{Binding Path=SelectedDescription, Mode=TwoWay}"/>
+                        <TextBlock Text="Product Category" FontWeight="Bold" Margin="0 10"/>
+                        <ComboBox ItemsSource="{Binding Path=ProdCategories}" DisplayMemberPath="ProdCatName" SelectedItem="{Binding Path=SelectedProdCategory, Mode=TwoWay}"/>
                     </StackPanel>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="2">
-                        <TextBlock Text="Product Category" FontWeight="Bold" Margin="0 10"/>
-                        <ComboBox ItemsSource="{Binding Path=ProdCategories}" DisplayMemberPath="ProdCatName" SelectedItem="{Binding Path=SelectedProdCategory, Mode=TwoWay}"/>
+                        <TextBlock Text="Description" FontWeight="Bold" Margin="0 10"/>
+                        <TextBox Text="{Binding Path=SelectedDescription, Mode=TwoWay}"/>
                     </StackPanel>
 
                     <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="3">
@@ -116,12 +116,12 @@
                             </Style>
                         </DataGrid.RowStyle>-->
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="6*" Header="Product Name" Binding="{Binding ProductName}"/>
-                            <DataGridTextColumn Width="3*" Header="Product Category" Binding="{Binding ProdCatName}"/>
-                            <DataGridTextColumn Width="3*" Header="Description" Binding="{Binding Description}"/>
-                            <DataGridTextColumn Width="3*" Header="Location" Binding="{Binding LocationName}"/>
-                            <DataGridTextColumn Width="3*" Header="Get in Date" Binding="{Binding GetInDate}"/>
-                            <DataGridTextColumn Width="3*" Header="Best Before" Binding="{Binding BestBefore}">
+                            <DataGridTextColumn Width="4*" Header="Product Name" Binding="{Binding ProductName}"/>
+                            <DataGridTextColumn Width="2*" Header="Product Category" Binding="{Binding ProdCatName}"/>
+                            <DataGridTextColumn Width="4*" Header="Description" Binding="{Binding Description}"/>
+                            <DataGridTextColumn Width="2*" Header="Location" Binding="{Binding LocationName}"/>
+                            <DataGridTextColumn Width="*" Header="Get in Date" Binding="{Binding GetInDate}"/>
+                            <DataGridTextColumn Width="*" Header="Best Before" Binding="{Binding BestBefore}">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Background" Value="{Binding ColorSet}"/>
@@ -162,7 +162,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <StatusBar Grid.Row="2" Grid.ColumnSpan="6" Height="25" Margin="0 10 0 0">
+                    <StatusBar Grid.Row="2" Grid.ColumnSpan="9" Height="25" Margin="0 10 0 0">
                         <StatusBarItem TextBlock.TextAlignment="Left">
                             <TextBlock Foreground="{Binding Path=StatusColor}" Text="{Binding Path=AppStatus}"/>
                         </StatusBarItem>
@@ -178,11 +178,12 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="7*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="47*"/>
+                        <ColumnDefinition Width="623*"/>
+                        <ColumnDefinition Width="96*"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Row="1">
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -191,9 +192,33 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
-                                
+
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
@@ -213,12 +238,41 @@
                             <TextBlock Grid.Row="0" Grid.Column="3" Text="Days left" Background="#39FF8000" Margin="5 0" />
                             <TextBlock Grid.Row="0" Grid.Column="4" Text="Days left" Background="#39FF0000" Margin="5 0"/>
                             <TextBlock Grid.Row="1" Grid.Column="1" Text="Default values" Margin="5 0 0 15"/>
+
                             <TextBlock Grid.Row="3" Grid.Column="0" Text="Meat" VerticalAlignment="Center" Grid.RowSpan="2" Height="16" Margin="5 0"/>
                             <TextBlock Grid.Row="3" Grid.Column="1" Text="Freezer" Margin="5 0"/>
                             <TextBlock Grid.Row="4" Grid.Column="1" Text="Refrigerator" Margin="5 0"/>
+
                             <TextBlock Grid.Row="5" Grid.Column="0" Text="Cold Collation" VerticalAlignment="Center" Grid.RowSpan="2" Height="16" Margin="5 0"/>
                             <TextBlock Grid.Row="5" Grid.Column="1" Text="Freezer" Margin="5 0"/>
                             <TextBlock Grid.Row="6" Grid.Column="1" Text="Refrigerator" Margin="5 0"/>
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Dairy Produce" VerticalAlignment="Center" Grid.RowSpan="2" Height="16" Margin="5 0"/>
+                            <TextBlock Grid.Row="7" Grid.Column="1" Text="Freezer" Margin="5 0"/>
+                            <TextBlock Grid.Row="8" Grid.Column="1" Text="Refrigerator" Margin="5 0"/>
+
+                            <TextBlock Grid.Row="9" Grid.Column="0" Text="Egg" VerticalAlignment="Center" Grid.RowSpan="2" Height="16" Margin="5 0"/>
+                            <TextBlock Grid.Row="9" Grid.Column="1" Text="Flat" Margin="5 0"/>
+                            <TextBlock Grid.Row="10" Grid.Column="1" Text="Refrigerator" Margin="5 0"/>
+
+                            <TextBlock Grid.Row="11" Grid.Column="0" Text="Ready-coocked" VerticalAlignment="Center" Grid.RowSpan="2" Height="16" Margin="5 0"/>
+                            <TextBlock Grid.Row="11" Grid.Column="1" Text="Freezer" Margin="5 0"/>
+                            <TextBlock Grid.Row="12" Grid.Column="1" Text="Refrigerator" Margin="5 0"/>
+
+                            <TextBlock Grid.Row="11" Grid.Column="0" Text="Ready-coocked" VerticalAlignment="Center" Grid.RowSpan="2" Height="16" Margin="5 0"/>
+                            <TextBlock Grid.Row="11" Grid.Column="1" Text="Freezer" Margin="5 0"/>
+                            <TextBlock Grid.Row="12" Grid.Column="1" Text="Refrigerator" Margin="5 0"/>
+
+                            <TextBlock Grid.Row="13" Grid.Column="0" Text="Conserve" VerticalAlignment="Center" Grid.RowSpan="1" Height="16" Margin="5 0"/>
+                            <TextBlock Grid.Row="13" Grid.Column="1" Text="Anywhere" Margin="5 0"/>
+
+                            <TextBlock Grid.Row="14" Grid.Column="0" Text="Vegs and Fruits" VerticalAlignment="Center" Grid.RowSpan="2" Height="16" Margin="5 0"/>
+                            <TextBlock Grid.Row="14" Grid.Column="1" Text="Flat" Margin="5 0"/>
+                            <TextBlock Grid.Row="15" Grid.Column="1" Text="Refrigerator" Margin="5 0"/>
+
+                            <TextBlock Grid.Row="16" Grid.Column="0" Text="Deep-frozen" VerticalAlignment="Center" Grid.RowSpan="2" Height="16" Margin="5 0"/>
+                            <TextBlock Grid.Row="16" Grid.Column="1" Text="Freezer" Margin="5 0"/>
+                            <TextBlock Grid.Row="17" Grid.Column="1" Text="Refrigerator" Margin="5 0"/>
 
                             <!--Validation.Error="Validation_Error"-->
                             <TextBox Grid.Row="1" Grid.Column="2" BorderThickness="0" Margin="5 0"
@@ -285,6 +339,7 @@
                                                                   UpdateSourceTrigger=LostFocus, 
                                                                   ValidatesOnDataErrors=true,
                                                                   NotifyOnValidationError=true}"/>
+
                             <TextBox Grid.Row="5" Grid.Column="2" BorderThickness="0" Margin="5 0"
                                                                   PreviewTextInput="NumberValidationTextBox"
                                                                   Text="{Binding Path=ColdCollationInFreezerForColor1,
@@ -328,9 +383,242 @@
                                                                   ValidatesOnDataErrors=true,
                                                                   NotifyOnValidationError=true}"/>
 
+                            <TextBox Grid.Row="7" Grid.Column="2" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DairyInFreezerForColor1,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="7" Grid.Column="3" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DairyInFreezerForColor2,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="7" Grid.Column="4" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DairyInFreezerForColor3,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="8" Grid.Column="2" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DairyInRefrigeratorForColor1,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="8" Grid.Column="3" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DairyInRefrigeratorForColor2,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="8" Grid.Column="4" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DairyInRefrigeratorForColor3,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
 
+                            <TextBox Grid.Row="9" Grid.Column="2" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=EggInRefrigeratorForColor1,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="9" Grid.Column="3" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=EggInRefrigeratorForColor2,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="9" Grid.Column="4" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=EggInRefrigeratorForColor3,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="10" Grid.Column="2" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=EggInFlatForColor1,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="10" Grid.Column="3" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=EggInFlatForColor2,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="10" Grid.Column="4" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=EggInFlatForColor3,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
 
+                            <TextBox Grid.Row="11" Grid.Column="2" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=ReadyInFreezerForColor1,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="11" Grid.Column="3" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=ReadyInFreezerForColor2,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="11" Grid.Column="4" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=ReadyInFreezerForColor3,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="12" Grid.Column="2" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=ReadyInRefrigeratorForColor1,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="12" Grid.Column="3" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=ReadyInRefrigeratorForColor2,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="12" Grid.Column="4" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=ReadyInRefrigeratorForColor3,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
 
+                            <TextBox Grid.Row="13" Grid.Column="2" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=ConserveForColor1,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="13" Grid.Column="3" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=ConserveForColor2,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="13" Grid.Column="4" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=ConserveForColor3,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+
+                            <TextBox Grid.Row="14" Grid.Column="2" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=VegsAndFruitsInFlatForColor1,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="14" Grid.Column="3" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=VegsAndFruitsInFlatForColor2,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="14" Grid.Column="4" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=VegsAndFruitsInFlatForColor3,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="15" Grid.Column="2" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=VegsAndFruitsInRefrigeratorForColor1,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="15" Grid.Column="3" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=VegsAndFruitsInRefrigeratorForColor2,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="15" Grid.Column="4" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=VegsAndFruitsInRefrigeratorForColor3,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+
+                            <TextBox Grid.Row="16" Grid.Column="2" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DeepFrozenInFreezerForColor1,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="16" Grid.Column="3" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DeepFrozenInFreezerForColor2,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="16" Grid.Column="4" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DeepFrozenInFreezerForColor3,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="17" Grid.Column="2" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DeepFrozenInRefrigeratorForColor1,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="17" Grid.Column="3" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DeepFrozenInRefrigeratorForColor2,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
+                            <TextBox Grid.Row="17" Grid.Column="4" BorderThickness="0" Margin="5 0"
+                                                                  PreviewTextInput="NumberValidationTextBox"
+                                                                  Text="{Binding Path=DeepFrozenInRefrigeratorForColor3,
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=LostFocus, 
+                                                                  ValidatesOnDataErrors=true,
+                                                                  NotifyOnValidationError=true}"/>
                         </Grid>
 
                     </StackPanel>
