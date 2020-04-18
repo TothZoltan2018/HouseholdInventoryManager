@@ -754,5 +754,41 @@ namespace InventoryManager.Properties {
                 this["DeepFrozenInRefrigeratorForColor3"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GmailUsernameOfSender {
+            get {
+                return ((string)(this["GmailUsernameOfSender"]));
+            }
+            set {
+                this["GmailUsernameOfSender"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GmailPasswordOfSender {
+            get {
+                return ((string)(this["GmailPasswordOfSender"]));
+            }
+            set {
+                this["GmailPasswordOfSender"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GmailUsernameOfReceiver {
+            get {
+                return ((string)(this["GmailUsernameOfReceiver"]));
+            }
+            set {
+                this["GmailUsernameOfReceiver"] = value;
+            }
+        }
     }
 }

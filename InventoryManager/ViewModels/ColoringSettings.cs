@@ -741,8 +741,5 @@ namespace InventoryManager.ViewModels
             if (timeTillExp < DayNumForColor1) return new SolidColorBrush(Color.FromArgb(0x39, 0xFF, 0xFF, 0x80)); //Yellow
             else return new SolidColorBrush(Color.FromArgb(0x39, 0x00, 0xFF, 0x00)); //Green
         }
-
-
-        // }
     }
 }

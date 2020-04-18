@@ -24,6 +24,8 @@ namespace InventoryManager.ViewModels
 
         ProductCommands productCommands;
         ProductModel updateProductRow;
+
+        //EmailSender emailSender = new EmailSender();
         
         public MainViewModel()
         {
@@ -50,6 +52,7 @@ namespace InventoryManager.ViewModels
             
             GenerateTableProductsToDisplay();
             InitializeAllPropertyFields();
+
         }
 
         public void GenerateTableProductsToDisplay()
@@ -87,9 +90,7 @@ namespace InventoryManager.ViewModels
 
                 unitDictionary.TryGetValue(productModelAllTablesMerged.UnitId, out UnitModel unit);
                 productModelAllTablesMerged.UnitName = unit.UnitName;
-
-                //DateColoring dateColoring = new DateColoring();
-                //productModelAllTablesMerged.ColorSet = dateColoring.ColorDataBestBeforeColumn(productModelAllTablesMerged.GetInDate, productModelAllTablesMerged.BestBefore);
+                                
                 productModelAllTablesMerged.ColorSet = ColorDataBestBeforeColumn(productModelAllTablesMerged);
 
                 ProductModelAllTablesMerged.Add(productModelAllTablesMerged);
@@ -356,6 +357,11 @@ namespace InventoryManager.ViewModels
                 productCommands.EmptyTable();
                 ReadTableFromDatabaseAfterModification("Deleting all data was successful. The empty table reloaded.", "Error on retrieving table \"Product\" from SQL database:\n");
             }
+        }
+
+        public void SendMail()
+        {
+            Send("TESZT");
         }
     }
  }
