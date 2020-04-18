@@ -8,13 +8,13 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 //For accessing the "ProtectedData" class: Add Reference, Assembly: System.Security.dll
 namespace InventoryManager.ViewModels
 {    
     partial class MainViewModel
-    {
-        //public string GmailUsernameOfSender { get; private set; } = "toth.tozso.zoltan@gmail.com";
+    {        
         string _gmailUsernameOfSender = Properties.Settings.Default.GmailUsernameOfSender;
         public string GmailUsernameOfSender
         {
@@ -67,8 +67,23 @@ namespace InventoryManager.ViewModels
             return data;
         }
 
-        public void Send(string alertMessage)
+        public string CreateMessageToSendInEmail()
         {
+            string message = string.Empty;
+            foreach (var row in ProductsAllTablesMerged)
+            {
+                //If the item is red that is will be expired soon                
+                if (row.ColorSet.Color ==  Color.FromArgb(0x39, 0xFF, 0x00, 0x00))
+                {
+                    message += $"[ {row.ProdCatName}   {row.ProdCatName}   {row.Description}   {row.BestBefore}   {row.Quantity}   {row.UnitName} ]\n";
+                }
+            }
+            
+            return message;
+        }
+
+        public void Send(string alertMessage)
+        {            
             try
             {
                 NetworkCredential credential = new NetworkCredential(GmailUsernameOfSender, Unprotect(GmailPasswordOfSender));
@@ -81,12 +96,12 @@ namespace InventoryManager.ViewModels
                     EnableSsl = true,
                     Credentials = credential
                 };
-                
+
                 MailMessage message = new MailMessage()//(GmailUsernameOfSender, GmailUsernameOfReceiver)
                 {
                     From = new MailAddress(GmailUsernameOfSender),
                     Subject = $"Invenrory Manager auto generated report on {DateTime.Now.ToShortDateString()}.",
-                    Body = $"XXXXXXXXXXXXXXx"
+                    Body = "The following items will expire soon:\n\n" + CreateMessageToSendInEmail()
                 };
 
                 foreach (string addr in GmailUsernamesOfReceiver.Split(';'))
@@ -107,3 +122,4 @@ namespace InventoryManager.ViewModels
         }
     }
 }
+//Todo: Level elkuldve status uzenet, idozotes, annak konfigolasa. A mar lejart termekeket is belevenni a riportba

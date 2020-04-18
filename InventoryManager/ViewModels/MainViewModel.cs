@@ -20,15 +20,13 @@ namespace InventoryManager.ViewModels
         public BindableCollection<LocationModel> Locations { get; set; } = new BindableCollection<LocationModel>();
         public BindableCollection<LocationCategoryModel> LocationCategories { get; set; } = new BindableCollection<LocationCategoryModel>();
         public BindableCollection<UnitModel> Units { get; set; } = new BindableCollection<UnitModel>();
-        public BindableCollection<ProductModelAllTablesMerged> ProductModelAllTablesMerged { get; set; } = new BindableCollection<ProductModelAllTablesMerged>();
-
+        public BindableCollection<ProductModelAllTablesMerged> ProductsAllTablesMerged { get; set; } = new BindableCollection<ProductModelAllTablesMerged>();
+        
         ProductCommands productCommands;
         ProductModel updateProductRow;
-
-        //EmailSender emailSender = new EmailSender();
         
         public MainViewModel()
-        {
+        {            
             try
             {
                 productCommands = new ProductCommands(_connectionString);
@@ -51,12 +49,11 @@ namespace InventoryManager.ViewModels
             catch (Exception ex) { UpdateAppStatus($"Error on retrieving tables from SQL database:\n{ex.Message}", Brushes.Red); }
             
             GenerateTableProductsToDisplay();
-            InitializeAllPropertyFields();
-
+            InitializeAllPropertyFields();            
         }
 
         public void GenerateTableProductsToDisplay()
-        {
+        {            
             var prodcatDictionary = ProdCategories.ToDictionary(cat => cat.ProdCategoryId);
             var locDictionary = Locations.ToDictionary(loc => loc.LocationId);
             var locCatDictionary = LocationCategories.ToDictionary(locCat => locCat.LocCategoryId);
@@ -92,8 +89,8 @@ namespace InventoryManager.ViewModels
                 productModelAllTablesMerged.UnitName = unit.UnitName;
                                 
                 productModelAllTablesMerged.ColorSet = ColorDataBestBeforeColumn(productModelAllTablesMerged);
-
-                ProductModelAllTablesMerged.Add(productModelAllTablesMerged);
+                
+                ProductsAllTablesMerged.Add(productModelAllTablesMerged);
             }
         }
 
@@ -224,7 +221,7 @@ namespace InventoryManager.ViewModels
             StatusColor = statusColor;
             NotifyOfPropertyChange(() => StatusColor);
             AppStatus = message;
-            NotifyOfPropertyChange(() => AppStatus);
+            NotifyOfPropertyChange(() => AppStatus);            
         }
 
         /// <summary>
@@ -238,10 +235,7 @@ namespace InventoryManager.ViewModels
 
                 //ProductId must be set to a value which is not in the Product table in the SQL database. SQL stored proc will then Insert, not Update Table
                 if (createItem) updateProductRow.ProductId = 0;
-                else
-                {
-                    updateProductRow.ProductId = SelectedInventoryRow.ProductId;
-                }
+                else updateProductRow.ProductId = SelectedInventoryRow.ProductId;                
 
                 updateProductRow.ProductName = SelectedProductName;
 
@@ -320,7 +314,7 @@ namespace InventoryManager.ViewModels
         {
             try
             {
-                ProductModelAllTablesMerged.Clear();
+                ProductsAllTablesMerged.Clear();
                 Products.Clear();
                 Products.AddRange(productCommands.GetList());
                 GenerateTableProductsToDisplay();                
@@ -359,8 +353,11 @@ namespace InventoryManager.ViewModels
             }
         }
 
+        
         public void SendMail()
         {
+            //EmailSender emailSender = new EmailSender();
+            //emailSender.Send("TESZT");
             Send("TESZT");
         }
     }

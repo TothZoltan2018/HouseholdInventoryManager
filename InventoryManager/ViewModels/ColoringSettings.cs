@@ -13,7 +13,7 @@ using System.Windows.Media;
 namespace InventoryManager.ViewModels
 {
     partial class MainViewModel : Screen, IDataErrorInfo
-    {
+    {        
         #region Coloring properties                    
         int _defaultForColor1 = Properties.Settings.Default.DefaultForColor1;
         public int DefaultForColor1
@@ -558,7 +558,7 @@ namespace InventoryManager.ViewModels
                 Properties.Settings.Default.Save();
             }
         }
-        
+
         int _deepFrozenInRefrigeratorForColor1 = Properties.Settings.Default.DeepFrozenInRefrigeratorForColor1;
         public int DeepFrozenInRefrigeratorForColor1
         {
@@ -637,7 +637,7 @@ namespace InventoryManager.ViewModels
                                                     VegsAndFruitsInFlatForColor1, VegsAndFruitsInFlatForColor2, VegsAndFruitsInFlatForColor3,
                                                     DeepFrozenInFreezerForColor1, DeepFrozenInFreezerForColor2, DeepFrozenInFreezerForColor3,
                                                     DeepFrozenInRefrigeratorForColor1, DeepFrozenInRefrigeratorForColor2, DeepFrozenInRefrigeratorForColor3 };
-            
+
                 string result = null;
 
                 for (int i = 0; i < textBoxNameStringsForColoring.Length - 2; i += 3)
@@ -657,39 +657,20 @@ namespace InventoryManager.ViewModels
                         if (textBoxNameIntsForColoring[i] < textBoxNameIntsForColoring[i + 2] || textBoxNameIntsForColoring[i + 1] < textBoxNameIntsForColoring[i + 2])
                             result = "Please set the values as follows: Yellow \"Days till exp.\" > Orange \"Days till exp. > Red \"Days till exp.\"";
                     }
-                } 
+                }
                 return result;
             }
         }
         # endregion checking that days of yellow > orange > red
 
         /// <summary>
-        /// Sets the backgroundcolor each row of the table on the basis of time left before reaching "BestBefore" date.
+        /// Sets the backgroundcolor of BestBefore value in a row on the basis of time left before reaching "BestBefore" date.
         /// </summary>
         /// <returns></returns>
         public SolidColorBrush ColorDataBestBeforeColumn(ProductModelAllTablesMerged productModelAllTablesMerged)
         {
-            //NotifyOfPropertyChange(() => DefaultForColor1);
-            //NotifyOfPropertyChange(() => DefaultForColor2);
-            //NotifyOfPropertyChange(() => DefaultForColor3);
-            int[] textBoxNameIntsForColoring = { DefaultForColor1, DefaultForColor2, DefaultForColor3,
-                                                    MeatInFreezerForColor1, MeatInFreezerForColor2, MeatInFreezerForColor3,
-                                                    MeatInRefrigeratorForColor1, MeatInRefrigeratorForColor2, MeatInRefrigeratorForColor3,
-                                                    ColdCollationInFreezerForColor1, ColdCollationInFreezerForColor2, ColdCollationInFreezerForColor3,
-                                                    ColdCollationInRefrigeratorForColor1, ColdCollationInRefrigeratorForColor2, ColdCollationInRefrigeratorForColor3,
-                                                    DairyInFreezerForColor1, DairyInFreezerForColor2, DairyInFreezerForColor3,
-                                                    DairyInRefrigeratorForColor1, DairyInRefrigeratorForColor2, DairyInRefrigeratorForColor3,
-                                                    EggInRefrigeratorForColor1, EggInRefrigeratorForColor2, EggInRefrigeratorForColor3,
-                                                    EggInFlatForColor1, EggInFlatForColor2, EggInFlatForColor3,
-                                                    ReadyInFreezerForColor1, ReadyInFreezerForColor2, ReadyInFreezerForColor3,
-                                                    ReadyInRefrigeratorForColor1, ReadyInRefrigeratorForColor2, ReadyInRefrigeratorForColor3,
-                                                    ConserveForColor1, ConserveForColor2, ConserveForColor3,
-                                                    VegsAndFruitsInRefrigeratorForColor1, VegsAndFruitsInRefrigeratorForColor2, VegsAndFruitsInRefrigeratorForColor3,
-                                                    VegsAndFruitsInFlatForColor1, VegsAndFruitsInFlatForColor2, VegsAndFruitsInFlatForColor3,
-                                                    DeepFrozenInFreezerForColor1, DeepFrozenInFreezerForColor2, DeepFrozenInFreezerForColor3,
-                                                    DeepFrozenInRefrigeratorForColor1, DeepFrozenInRefrigeratorForColor2, DeepFrozenInRefrigeratorForColor3 };
-            
             int timeTillExp = (int)(productModelAllTablesMerged.BestBefore - DateTime.Now).TotalDays;
+
             #region rules for coloring according to product categories and locationcategories
             if (productModelAllTablesMerged.ProdCatName == Properties.Settings.Default.Meat && productModelAllTablesMerged.LocCatName == Properties.Settings.Default.Freezer)
                 return ColorsDependingOnCatAndLoc(timeTillExp, MeatInFreezerForColor1, MeatInFreezerForColor2, MeatInFreezerForColor3);
@@ -730,7 +711,7 @@ namespace InventoryManager.ViewModels
                 return ColorsDependingOnCatAndLoc(timeTillExp, DeepFrozenInFreezerForColor1, DeepFrozenInFreezerForColor2, DeepFrozenInFreezerForColor3);
 
             else return ColorsDependingOnCatAndLoc(timeTillExp, DefaultForColor1, DefaultForColor2, DefaultForColor3);
-            #endregion
+            #endregion            
         }
 
         private SolidColorBrush ColorsDependingOnCatAndLoc(int timeTillExp, int DayNumForColor1, int DayNumForColor2, int DayNumForColor3)
@@ -740,6 +721,6 @@ namespace InventoryManager.ViewModels
             if (timeTillExp < DayNumForColor2) return new SolidColorBrush(Color.FromArgb(0x39, 0xFF, 0x80, 0x00)); //Orange
             if (timeTillExp < DayNumForColor1) return new SolidColorBrush(Color.FromArgb(0x39, 0xFF, 0xFF, 0x80)); //Yellow
             else return new SolidColorBrush(Color.FromArgb(0x39, 0x00, 0xFF, 0x00)); //Green
-        }
+        } 
     }
 }

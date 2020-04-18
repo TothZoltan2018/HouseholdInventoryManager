@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Inventory Manager" Height="450" Width="800" WindowState="Maximized" ResizeMode="CanMinimize">
     <!--<Window.Resources>
-        <CollectionViewSource x:Key="Products" Source="{Binding ProductModelAllTablesMerged}"/>
+        <CollectionViewSource x:Key="Products" Source="{Binding ProductsAllTablesMerged}"/>
     </Window.Resources>-->
 
     <Border Padding="10">
@@ -108,7 +108,7 @@
                     </StackPanel>
 
                     <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7"
-                              x:Name="ProductModelAllTablesMerged" 
+                              x:Name="ProductsAllTablesMerged" 
                               SelectedItem="{Binding Path=SelectedInventoryRow,Mode=TwoWay}"
                               AutoGenerateColumns="False" Margin="0,10,0,0" IsReadOnly="True" CanUserResizeRows="False">
                         <!--<DataGrid.RowStyle>
