@@ -11,13 +11,8 @@
     </Window.Resources>-->
 
     <Border Padding="10">
-        <TabControl TabStripPlacement="Top" Name="TabsOfMyApp" SelectionChanged="TabsOfMyApp_SelectionChanged">
+        <TabControl TabStripPlacement="Top" Name="TabsOfMyApp">
             <TabItem Header="Manage Data" x:Name="xxxxGenerateTableProductsToDisplay">
-                <!--<TabItem Name="ManageData">
-                <TabItem.Header>
-                    <Label Content="Manage Data" MouseLeftButtonDown="ManageDataTab_Clicked"/>
-                </TabItem.Header>-->
-
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*" />
@@ -94,14 +89,7 @@
                         <ComboBox ItemsSource="{Binding Path=Units}" DisplayMemberPath="UnitName" SelectedItem="{Binding Path=SelectedUnit, Mode=TwoWay}"/>
                     </StackPanel>
 
-                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="8">
-                        <!--<Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>                                
-                            </Grid.RowDefinitions>
-                        </Grid>-->
+                    <StackPanel Margin="5 0" Grid.Row="0" Grid.Column="8">              
                         <Button Margin="5" x:Name="CreateItem">Create New Item</Button>
                         <Button Margin="5" x:Name="UpdateItem">Update Item</Button>
                         <Button Margin="5" x:Name="DeleteItem">Delete Item</Button>
@@ -640,26 +628,8 @@
                             <Button Grid.Row="0" Grid.Column="5" Margin="5" x:Name="SendMail">Send</Button>
                         </Grid>
                     </StackPanel>
-
-
-                </Grid>
- 
-            </TabItem>
-           
+                </Grid> 
+            </TabItem>           
         </TabControl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </Border>
 </Window>

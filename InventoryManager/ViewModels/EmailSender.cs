@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -68,18 +69,22 @@ namespace InventoryManager.ViewModels
         }
 
         public string CreateMessageToSendInEmail()
-        {
-            string message = string.Empty;
+        {            
+            string messageRed = "The following items will expire soon:\n";
+            string messageGrey = "The following items have already expired:\n";
             foreach (var row in ProductsAllTablesMerged)
             {
                 //If the item is red that is will be expired soon                
-                if (row.ColorSet.Color ==  Color.FromArgb(0x39, 0xFF, 0x00, 0x00))
-                {
-                    message += $"[ {row.ProdCatName}   {row.ProdCatName}   {row.Description}   {row.BestBefore}   {row.Quantity}   {row.UnitName} ]\n";
-                }
+                if (row.ColorSet.Color ==  Color.FromArgb(0x39, 0xFF, 0x00, 0x00))            
+                    messageRed += $"{row.ProductName}\t{row.Description}\t{row.LocationName}\t{row.BestBefore}\t{row.Quantity}\t{row.UnitName}\n";
+                if (row.ColorSet.Color == Colors.SlateGray)
+                    messageGrey += $"{row.ProductName}\t{row.Description}\t{row.LocationName}\t{row.BestBefore}\t{row.Quantity}\t{row.UnitName}\n";
             }
+
+            if (messageRed == "The following items will expire soon:\n")  messageRed = "Nothing will expire soon.\n";
+            if (messageGrey == "The following items have already expired:\n") messageGrey = "Nothing has already expired.";
             
-            return message;
+            return messageRed + "\n" + messageGrey;
         }
 
         public void Send(string alertMessage)
@@ -101,7 +106,7 @@ namespace InventoryManager.ViewModels
                 {
                     From = new MailAddress(GmailUsernameOfSender),
                     Subject = $"Invenrory Manager auto generated report on {DateTime.Now.ToShortDateString()}.",
-                    Body = "The following items will expire soon:\n\n" + CreateMessageToSendInEmail()
+                    Body = CreateMessageToSendInEmail()
                 };
 
                 foreach (string addr in GmailUsernamesOfReceiver.Split(';'))

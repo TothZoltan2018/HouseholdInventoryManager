@@ -38,14 +38,14 @@ namespace InventoryManager.Views
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void ManageDataTab_Clicked(object sender, MouseButtonEventArgs e)
-        {
-            //GenerateTableProductsToDisplay();
-        }
+        //private void ManageDataTab_Clicked(object sender, MouseButtonEventArgs e)
+        //{
+        //    //GenerateTableProductsToDisplay();
+        //}
 
-        private void TabsOfMyApp_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        //private void TabsOfMyApp_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
 
-        }
+        //}
     }
 }
