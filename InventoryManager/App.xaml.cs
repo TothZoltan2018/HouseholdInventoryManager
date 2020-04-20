@@ -5,6 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.ComponentModel;
+using InventoryManager.Views;
+using InventoryManager.ViewModels;
+using Caliburn.Micro;
 
 namespace InventoryManager
 {
@@ -13,5 +17,6 @@ namespace InventoryManager
     /// </summary>
     public partial class App : Application
     {
+
     }
 }

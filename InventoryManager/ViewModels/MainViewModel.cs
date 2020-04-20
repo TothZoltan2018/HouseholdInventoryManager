@@ -91,6 +91,7 @@ namespace InventoryManager.ViewModels
                 productModelAllTablesMerged.ColorSet = ColorDataBestBeforeColumn(productModelAllTablesMerged);
                 
                 ProductsAllTablesMerged.Add(productModelAllTablesMerged);
+                //ToDo: notifyproperty? Is the gridview refreshed really? Test it!
             }
         }
 
@@ -358,7 +359,7 @@ namespace InventoryManager.ViewModels
         {
             //EmailSender emailSender = new EmailSender();
             //emailSender.Send("TESZT");
-            Send("TESZT");
+            Send();
         }
     }
  }

@@ -24,7 +24,8 @@ namespace InventoryManager.Views
     {
         public MainView()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            
         }
 
         /// <summary>

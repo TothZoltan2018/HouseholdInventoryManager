@@ -69,16 +69,17 @@ namespace InventoryManager.ViewModels
         }
 
         public string CreateMessageToSendInEmail()
-        {            
+        {
             string messageRed = "The following items will expire soon:\n";
             string messageGrey = "The following items have already expired:\n";
             foreach (var row in ProductsAllTablesMerged)
             {
                 //If the item is red that is will be expired soon                
-                if (row.ColorSet.Color ==  Color.FromArgb(0x39, 0xFF, 0x00, 0x00))            
-                    messageRed += $"{row.ProductName}\t{row.Description}\t{row.LocationName}\t{row.BestBefore}\t{row.Quantity}\t{row.UnitName}\n";
+                if (row.ColorSet.Color == Color.FromArgb(0x39, 0xFF, 0x00, 0x00))
+                    //messageRed += $"{row.ProductName}\t{row.Description}\t{row.LocationName}\t{row.BestBefore}\t{row.Quantity}\t{row.UnitName}\n";
+                    messageRed += String.Format("{0,-35}{1,-35}{2,-15}{3,-15:yyyy.MM.dd.}{4,-10:F}{5,-10}\n", row.ProductName, row.Description, row.LocationName, row.BestBefore, row.Quantity, row.UnitName);
                 if (row.ColorSet.Color == Colors.SlateGray)
-                    messageGrey += $"{row.ProductName}\t{row.Description}\t{row.LocationName}\t{row.BestBefore}\t{row.Quantity}\t{row.UnitName}\n";
+                    messageGrey += String.Format("{0,-35}{1,-35}{2,-15}{3,-15:yyyy.MM.dd.}{4,-10:F}{5,-10}\n", row.ProductName, row.Description, row.LocationName, row.BestBefore, row.Quantity, row.UnitName);
             }
 
             if (messageRed == "The following items will expire soon:\n")  messageRed = "Nothing will expire soon.\n";
@@ -87,7 +88,7 @@ namespace InventoryManager.ViewModels
             return messageRed + "\n" + messageGrey;
         }
 
-        public void Send(string alertMessage)
+        public void Send()
         {            
             try
             {

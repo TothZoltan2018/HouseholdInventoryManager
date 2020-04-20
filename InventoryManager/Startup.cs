@@ -13,7 +13,7 @@ namespace InventoryManager
     {
         public Startup()
         {
-            Initialize();
+            Initialize();           
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
