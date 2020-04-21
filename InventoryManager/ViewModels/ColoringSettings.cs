@@ -600,7 +600,7 @@ namespace InventoryManager.ViewModels
 
         #region checking that days of yellow > orange > red
         //ToDo: Inconsistent. E.g switching to an other tab an then back, removes the red rectangle which shows the validation error. And some other issues.
-        public string Error => throw new NotImplementedException();
+        public string Error => throw new NotImplementedException();        
         public string this[string columnName]
         {
             get
@@ -658,6 +658,30 @@ namespace InventoryManager.ViewModels
                             result = "Please set the values as follows: Yellow \"Days till exp.\" > Orange \"Days till exp. > Red \"Days till exp.\"";
                     }
                 }
+
+                //ToDo: TextBoxes time validation does not work. It corrupts the Color value validation, too.
+                //DateTime unUsed;
+                //if (!DateTime.TryParseExact(TimeAtMondays, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out unUsed))
+                //    result = "Timeformat should be like: 12:34";
+                
+                //if (!DateTime.TryParseExact(TimeAtTuesdays, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out unUsed))
+                //    result = "Timeformat should be like: 12:34";
+                
+                //if (!DateTime.TryParseExact(TimeAtWednesdays, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out unUsed))
+                //    result = "Timeformat should be like: 12:34";
+                
+                //if (!DateTime.TryParseExact(TimeAtThursdays, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out unUsed))
+                //    result = "Timeformat should be like: 12:34";
+                
+                //if (!DateTime.TryParseExact(TimeAtFridays, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out unUsed))
+                //    result = "Timeformat should be like: 12:34";
+                
+                //if (!DateTime.TryParseExact(TimeAtSaturdays, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out unUsed))
+                //    result = "Timeformat should be like: 12:34";
+                
+                //if (!DateTime.TryParseExact(TimeAtSundays, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out unUsed))
+                //    result = "Timeformat should be like: 12:34";
+
                 return result;
             }
         }

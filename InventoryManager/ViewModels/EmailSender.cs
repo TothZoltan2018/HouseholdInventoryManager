@@ -7,15 +7,16 @@ using System.Net.Mail;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 //For accessing the "ProtectedData" class: Add Reference, Assembly: System.Security.dll
 namespace InventoryManager.ViewModels
 {    
     partial class MainViewModel
-    {        
+    {
+        private DispatcherTimer alarm;
         string _gmailUsernameOfSender = Properties.Settings.Default.GmailUsernameOfSender;
         public string GmailUsernameOfSender
         {
@@ -115,17 +116,218 @@ namespace InventoryManager.ViewModels
                     message.To.Add(addr);
                 }
 
-
-                //var prot = Protect("Titkos");
-                //var unprot = Unprotect(prot);
                 client.Send(message);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error on sending mail:\n{ex.Message}");
-            }
+            }            
+        }
 
+        bool _sendOnMondays = Properties.Settings.Default.SendOnMondays;
+        public bool SendOnMondays
+        {
+            get { return _sendOnMondays; }
+            set
+            {
+                _sendOnMondays = value;
+                Properties.Settings.Default.SendOnMondays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        bool _sendOnTuesdays = Properties.Settings.Default.SendOnTuesdays;
+        public bool SendOnTuesdays
+        {
+            get { return _sendOnTuesdays; }
+            set
+            {
+                _sendOnTuesdays = value;
+                Properties.Settings.Default.SendOnTuesdays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        bool _sendOnWednesdays = Properties.Settings.Default.SendOnWednesdays;
+        public bool SendOnWednesdays
+        {
+            get { return _sendOnWednesdays; }
+            set
+            {
+                _sendOnWednesdays = value;
+                Properties.Settings.Default.SendOnWednesdays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        bool _sendOnThursdays = Properties.Settings.Default.SendOnThursdays;
+        public bool SendOnThursdays
+        {
+            get { return _sendOnThursdays; }
+            set
+            {
+                _sendOnThursdays = value;
+                Properties.Settings.Default.SendOnThursdays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        bool _sendOnFridays = Properties.Settings.Default.SendOnFridays;
+        public bool SendOnFridays
+        {
+            get { return _sendOnFridays; }
+            set
+            {
+                _sendOnFridays = value;
+                Properties.Settings.Default.SendOnFridays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        bool _sendOnSaturdays = Properties.Settings.Default.SendOnSaturdays;
+        public bool SendOnSaturdays
+        {
+            get { return _sendOnSaturdays; }
+            set
+            {
+                _sendOnSaturdays = value;
+                Properties.Settings.Default.SendOnSaturdays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        bool _sendOnSundays = Properties.Settings.Default.SendOnSundays;
+        public bool SendOnSundays
+        {
+            get { return _sendOnSundays; }
+            set
+            {
+                _sendOnSundays = value;
+                Properties.Settings.Default.SendOnSundays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        string _timeAtMondays = Properties.Settings.Default.TimeAtMondays;
+        public string TimeAtMondays
+        {
+            get { return _timeAtMondays; }
+            set
+            {
+                _timeAtMondays = value;
+                Properties.Settings.Default.TimeAtMondays = value;
+                //NotifyOfPropertyChange(() => TimeAtMondays);
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        string _timeAtTuesdays = Properties.Settings.Default.TimeAtTuesdays;
+        public string TimeAtTuesdays
+        {
+            get { return _timeAtTuesdays; }
+            set
+            {
+                _timeAtTuesdays = value;
+                Properties.Settings.Default.TimeAtTuesdays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        string _timeAtWednesdays = Properties.Settings.Default.TimeAtWednesdays;
+        public string TimeAtWednesdays
+        {
+            get { return _timeAtWednesdays; }
+            set
+            {
+                _timeAtWednesdays = value;
+                Properties.Settings.Default.TimeAtWednesdays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        string _timeAtThursdays = Properties.Settings.Default.TimeAtThursdays;
+        public string TimeAtThursdays
+        {
+            get { return _timeAtThursdays; }
+            set
+            {
+                _timeAtThursdays = value;
+                Properties.Settings.Default.TimeAtThursdays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        string _timeAtFridays = Properties.Settings.Default.TimeAtFridays;
+        public string TimeAtFridays
+        {
+            get { return _timeAtFridays; }
+            set
+            {
+                _timeAtFridays = value;
+                Properties.Settings.Default.TimeAtFridays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        string _timeAtSaturdays = Properties.Settings.Default.TimeAtSaturdays;
+        public string TimeAtSaturdays
+        {
+            get { return _timeAtSaturdays; }
+            set
+            {
+                _timeAtSaturdays = value;
+                Properties.Settings.Default.TimeAtSaturdays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        string _timeAtSundays = Properties.Settings.Default.TimeAtSundays;
+        public string TimeAtSundays
+        {
+            get { return _timeAtSundays; }
+            set
+            {
+                _timeAtSundays = value;
+                Properties.Settings.Default.TimeAtSundays = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+
+        public void Scheduler()
+        {
+            alarm = new DispatcherTimer(TimeSpan.FromMinutes(10), DispatcherPriority.Normal, IsEmailSendingTime, Application.Current.Dispatcher);
+            alarm.Start();
+        }
+
+        bool emailSendingOrdered = false;
+        private void IsEmailSendingTime(object sender, EventArgs e)
+        {
+            CheckDayAndTimeToSendMail(SendOnMondays, DayOfWeek.Monday, TimeAtMondays);
+            CheckDayAndTimeToSendMail(SendOnTuesdays, DayOfWeek.Tuesday, TimeAtTuesdays);
+            CheckDayAndTimeToSendMail(SendOnWednesdays, DayOfWeek.Wednesday, TimeAtWednesdays);
+            CheckDayAndTimeToSendMail(SendOnThursdays, DayOfWeek.Thursday, TimeAtThursdays);
+            CheckDayAndTimeToSendMail(SendOnFridays, DayOfWeek.Friday, TimeAtFridays);
+            CheckDayAndTimeToSendMail(SendOnSaturdays, DayOfWeek.Saturday, TimeAtSaturdays);
+            CheckDayAndTimeToSendMail(SendOnSundays, DayOfWeek.Sunday, TimeAtSundays);
+        }
+
+        private void CheckDayAndTimeToSendMail(bool sendOnThatDay, DayOfWeek dayOfWeek, string timeOfThatDay)
+        {
+            if (sendOnThatDay && DateTime.Now.DayOfWeek == dayOfWeek)//ToDo true is for test, to be removed
+            {
+                DateTime.TryParseExact(timeOfThatDay, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime timeToSend);
+                var timePassedSinceEnteringTheSendingWindow = DateTime.Now - timeToSend;
+                if (timePassedSinceEnteringTheSendingWindow > TimeSpan.FromSeconds(0) && timePassedSinceEnteringTheSendingWindow < TimeSpan.FromMinutes(20)) //We are in the sending time window      
+                { 
+                    if (!emailSendingOrdered)
+                    {
+                        Send();
+                        emailSendingOrdered = true;
+                    }
+                }
+                else emailSendingOrdered = false;//We are out of the sending time window, so ready to send again
+            }
         }
     }
 }
-//Todo: Level elkuldve status uzenet, idozotes, annak konfigolasa. A mar lejart termekeket is belevenni a riportba

@@ -790,5 +790,173 @@ namespace InventoryManager.Properties {
                 this["GmailUsernameOfReceiver"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SendOnMondays {
+            get {
+                return ((bool)(this["SendOnMondays"]));
+            }
+            set {
+                this["SendOnMondays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SendOnTuesdays {
+            get {
+                return ((bool)(this["SendOnTuesdays"]));
+            }
+            set {
+                this["SendOnTuesdays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SendOnWednesdays {
+            get {
+                return ((bool)(this["SendOnWednesdays"]));
+            }
+            set {
+                this["SendOnWednesdays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SendOnThursdays {
+            get {
+                return ((bool)(this["SendOnThursdays"]));
+            }
+            set {
+                this["SendOnThursdays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SendOnFridays {
+            get {
+                return ((bool)(this["SendOnFridays"]));
+            }
+            set {
+                this["SendOnFridays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SendOnSaturdays {
+            get {
+                return ((bool)(this["SendOnSaturdays"]));
+            }
+            set {
+                this["SendOnSaturdays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SendOnSundays {
+            get {
+                return ((bool)(this["SendOnSundays"]));
+            }
+            set {
+                this["SendOnSundays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TimeAtMondays {
+            get {
+                return ((string)(this["TimeAtMondays"]));
+            }
+            set {
+                this["TimeAtMondays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TimeAtTuesdays {
+            get {
+                return ((string)(this["TimeAtTuesdays"]));
+            }
+            set {
+                this["TimeAtTuesdays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TimeAtWednesdays {
+            get {
+                return ((string)(this["TimeAtWednesdays"]));
+            }
+            set {
+                this["TimeAtWednesdays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TimeAtThursdays {
+            get {
+                return ((string)(this["TimeAtThursdays"]));
+            }
+            set {
+                this["TimeAtThursdays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TimeAtFridays {
+            get {
+                return ((string)(this["TimeAtFridays"]));
+            }
+            set {
+                this["TimeAtFridays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TimeAtSaturdays {
+            get {
+                return ((string)(this["TimeAtSaturdays"]));
+            }
+            set {
+                this["TimeAtSaturdays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TimeAtSundays {
+            get {
+                return ((string)(this["TimeAtSundays"]));
+            }
+            set {
+                this["TimeAtSundays"] = value;
+            }
+        }
     }
 }

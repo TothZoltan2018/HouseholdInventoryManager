@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InventoryManager.Views"
         mc:Ignorable="d"
-        Title="Inventory Manager" Height="450" Width="800" WindowState="Maximized" ResizeMode="CanMinimize">
+        Title="Inventory Manager" Height="450" Width="800" WindowState="Maximized">
     <!--<Window.Resources>
         <CollectionViewSource x:Key="Products" Source="{Binding ProductsAllTablesMerged}"/>
     </Window.Resources>-->
@@ -596,7 +596,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel>
+                    <Border Grid.Row="0" Grid.Column="0"  BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="5">
+                    <StackPanel Grid.Row="0" Grid.Column="0">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -610,10 +611,8 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="5*"/>
                                 <ColumnDefinition Width="5*"/>
-                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="3*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="From:"/>                            
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="From:"/>
                             <TextBox Grid.Row="0" Grid.Column="1" BorderThickness="1" Margin="5 0"                                                                  
                                                                   Text="{Binding Path=GmailUsernameOfSender, Mode=TwoWay}"/>
 
@@ -625,10 +624,98 @@
                             <TextBox Grid.Row="3" Grid.Column="1" BorderThickness="1" Margin="5 0"                                                                  
                                                                   Text="{Binding Path=GmailUsernamesOfReceiver, Mode=TwoWay}" MinLines="5" IsUndoEnabled="False" TextWrapping="Wrap"/>
 
-                            <Button Grid.Row="0" Grid.Column="5" Margin="5" x:Name="SendMail">Send</Button>
+                            <Button Grid.Row="4" Grid.Column="1" Margin="5" x:Name="SendMail">Send a mail now</Button>
                         </Grid>
                     </StackPanel>
+                    </Border>    
+                    <Border Grid.Row="0" Grid.Column="1"  BorderBrush="LightGray" BorderThickness="1" Margin="5" Padding="5">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Automatic Email report scheduling" Grid.ColumnSpan="4"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Monday" Margin="5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="Tuesday" Margin="5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="Wednesday" Margin="5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="3" Text="Thursday" Margin="5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="4" Text="Friday" Margin="5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="5" Text="Saturday" Margin="5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="6" Text="Sunday" Margin="5"/>
+
+                                <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{Binding Path=SendOnMondays, Mode=TwoWay}" Margin="5"/>
+                                <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Path=SendOnTuesdays, Mode=TwoWay}" Margin="5"/>
+                                <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{Binding Path=SendOnWednesdays, Mode=TwoWay}" Margin="5"/>
+                                <CheckBox Grid.Row="2" Grid.Column="3" IsChecked="{Binding Path=SendOnThursdays, Mode=TwoWay}" Margin="5"/>
+                                <CheckBox Grid.Row="2" Grid.Column="4" IsChecked="{Binding Path=SendOnFridays, Mode=TwoWay}" Margin="5"/>
+                                <CheckBox Grid.Row="2" Grid.Column="5" IsChecked="{Binding Path=SendOnSaturdays, Mode=TwoWay}" Margin="5"/>
+                                <CheckBox Grid.Row="2" Grid.Column="6" IsChecked="{Binding Path=SendOnSundays, Mode=TwoWay}" Margin="5"/>
+
+                                <TextBox Grid.Row="3" Grid.Column="0" MaxLength="5" Margin="5"
+                                         Text="{Binding Path=TimeAtMondays, Mode=TwoWay,
+                                                UpdateSourceTrigger=LostFocus, 
+                                                ValidatesOnDataErrors=true,
+                                                NotifyOnValidationError=true}"/>
+
+                                <TextBox Grid.Row="3" Grid.Column="1" MaxLength="5" Margin="5" 
+                                         Text="{Binding Path=TimeAtTuesdays, Mode=TwoWay,
+                                                UpdateSourceTrigger=LostFocus, 
+                                                ValidatesOnDataErrors=true,
+                                                NotifyOnValidationError=true}"/>
+                                
+                                <TextBox Grid.Row="3" Grid.Column="2" MaxLength="5" Margin="5" 
+                                         Text="{Binding Path=TimeAtWednesdays, Mode=TwoWay,
+                                                UpdateSourceTrigger=LostFocus, 
+                                                ValidatesOnDataErrors=true,
+                                                NotifyOnValidationError=true}"/>
+                                
+                                <TextBox Grid.Row="3" Grid.Column="3" MaxLength="5" Margin="5" 
+                                         Text="{Binding Path=TimeAtThursdays, Mode=TwoWay,
+                                                UpdateSourceTrigger=LostFocus, 
+                                                ValidatesOnDataErrors=true,
+                                                NotifyOnValidationError=true}"/>
+                                
+                                <TextBox Grid.Row="3" Grid.Column="4" MaxLength="5" Margin="5" 
+                                         Text="{Binding Path=TimeAtFridays, Mode=TwoWay,
+                                                UpdateSourceTrigger=LostFocus, 
+                                                ValidatesOnDataErrors=true,
+                                                NotifyOnValidationError=true}"/>
+                                
+                                <TextBox Grid.Row="3" Grid.Column="5" MaxLength="5" Margin="5" 
+                                         Text="{Binding Path=TimeAtSaturdays, Mode=TwoWay,
+                                                UpdateSourceTrigger=LostFocus, 
+                                                ValidatesOnDataErrors=true,
+                                                NotifyOnValidationError=true}"/>
+                                
+                                <TextBox Grid.Row="3" Grid.Column="6" MaxLength="5" Margin="5" 
+                                         Text="{Binding Path=TimeAtSundays, Mode=TwoWay,
+                                                UpdateSourceTrigger=LostFocus, 
+                                                ValidatesOnDataErrors=true,
+                                                NotifyOnValidationError=true}"/>
+                            </Grid>                    
+                        </StackPanel>
+                    </Border>
+                            
+                            <!--<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Automatic Email sending configiration"/>-->
+                         
+ 
+                    
                 </Grid> 
+                
+                
             </TabItem>           
         </TabControl>
     </Border>

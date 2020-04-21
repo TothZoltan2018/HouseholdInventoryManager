@@ -49,7 +49,8 @@ namespace InventoryManager.ViewModels
             catch (Exception ex) { UpdateAppStatus($"Error on retrieving tables from SQL database:\n{ex.Message}", Brushes.Red); }
             
             GenerateTableProductsToDisplay();
-            InitializeAllPropertyFields();            
+            InitializeAllPropertyFields();
+            Scheduler();
         }
 
         public void GenerateTableProductsToDisplay()
